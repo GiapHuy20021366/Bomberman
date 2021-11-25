@@ -10,7 +10,10 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
@@ -22,6 +25,7 @@ public class ViewPlayer extends Pane {
     private AnimationTimer moveView;
     private Map map;
     private boolean disableViewport = false;
+//    private Node borderPane;
 //    private Scale scale = new Scale(1d, 1d);
 //    private DoubleProperty zoom = new SimpleDoubleProperty(1d);
 
@@ -30,23 +34,23 @@ public class ViewPlayer extends Pane {
         // Set map that class using for
         this.map = map;
 
-
-
-
         // Hide scroll
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setPadding(Insets.EMPTY);
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
-        scrollPane.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
-            @Override
-            public void handle(ScrollEvent event) {
-                if (event.getDeltaX() != 0) {
-                    event.consume();
-                }
+        scrollPane.addEventFilter(KeyEvent.ANY, (event) -> {
+            if (event.getCode() == KeyCode.DOWN
+                    || event.getCode() == KeyCode.UP
+                    || event.getCode() == KeyCode.SPACE
+                    || event.getCode() == KeyCode.LEFT
+                    || event.getCode() == KeyCode.RIGHT) {
+                event.consume();
+                javafx.event.Event.fireEvent(this, event);
             }
         });
+
 
 
         // Set content
@@ -100,9 +104,13 @@ public class ViewPlayer extends Pane {
         moveView = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                if (character.isMoving() && !disableViewport) {
+//                if (character.isMoving() && !disableViewport) {
+//                    moveViewport();
+//                }
+                if (!disableViewport) {
                     moveViewport();
                 }
+
             }
         };
         moveView.start();

@@ -14,37 +14,59 @@ public  abstract class Monster extends Character {
 
     protected boolean disableCauseDamage = false;
 
-    public enum Go {
-        GO_LEFT, GO_RIGHT, GO_UP, GO_DOWN;
-    }
 
     public Monster(GameScreen gameScreen) throws IOException {
         super(gameScreen);
         setName(++count + "Monster");
         HP.set(1000);
-        defaultSpeed.set(1d);
+//        defaultSpeed.set(1d);
 
+    }
+
+    @Override
+    public void bindingSpeed() {
+        defaultSpeed.unbind();
+
+        defaultSpeed.bind(gameScreen.getSizeProperties().divide(40d));
+    }
+
+    public void setDisableCauseDamage(boolean disableCauseDamage) {
+        this.disableCauseDamage = disableCauseDamage;
+    }
+
+    @Override
+    public void defaultAttack() {
+        switch (onDirection) {
+            case UP -> {
+                setActions(onAttack.get() + "AttackUp");
+            }
+            case DOWN -> {
+                setActions(onAttack.get() + "AttackDown");
+            }
+            case LEFT -> {
+                setActions(onAttack.get() + "AttackLeft");
+            }
+            case RIGHT -> {
+                setActions(onAttack.get() + "AttackRight");
+            }
+        }
     }
 
     public abstract void addActionAttack();
 
-    public void setDefaultDirection(Go direction) {
+    public void setDefaultDirection(Direction direction) {
         switch (direction) {
-            case GO_LEFT -> {
+            case LEFT -> {
                 goLeft = true;
-                break;
             }
-            case GO_DOWN -> {
+            case DOWN -> {
                 goDown = true;
-                break;
             }
-            case GO_RIGHT -> {
+            case RIGHT -> {
                 goRight = true;
-                break;
             }
-            case GO_UP -> {
+            case UP -> {
                 goUp = true;
-                break;
             }
         }
     }
@@ -69,22 +91,22 @@ public  abstract class Monster extends Character {
             }
         }
 
-        Wall wall = (Wall) gameScreen.getManagement().getOverlapping(this, getX(), getY() - d, "UP");
+        Wall wall = (Wall) gameScreen.getManagement().getOverlapping(this, getX(), getY() - d, Direction.UP);
         if (wall != null) {
 
-            Point2D r = gameScreen.getManagement().getNearestWall(wall, "RIGHT", "UP");
-            Point2D l = gameScreen.getManagement().getNearestWall(wall, "LEFT", "UP");
+            Point2D r = gameScreen.getManagement().getNearestWall(wall, Direction.RIGHT, Direction.UP);
+            Point2D l = gameScreen.getManagement().getNearestWall(wall, Direction.LEFT, Direction.UP);
 
             if (r != null && l == null) goRight();
             else if (r == null && l != null) goLeft();
-            else if (r != null && l != null) {
+            else if (r != null) {
                 if (Math.abs(r.getX() * gameScreen.getComponentSize() - this.getX())
                         < Math.abs(this.getX() - l.getX() * gameScreen.getComponentSize())) goRight();
                 else goLeft();
             } else {
                 goUp = false;
-                boolean leftIsOverlapping = isOverlapping(getX() - 10 * d, getY(), "LEFT");
-                boolean rightIsOverlapping = isOverlapping(getX() + 10 * d, getY(), "RIGHT");
+                boolean leftIsOverlapping = isOverlapping(getX() - 10 * d, getY(), Direction.LEFT);
+                boolean rightIsOverlapping = isOverlapping(getX() + 10 * d, getY(), Direction.RIGHT);
 
                 if (!leftIsOverlapping) {
                     goLeft = true;
@@ -96,7 +118,7 @@ public  abstract class Monster extends Character {
             }
 
         } else {
-            if (!actions.get("GoUp").equals(getOnAction())) setActions("GoUp");
+            setActionGoDirection(Direction.UP);
             setY(getY() - d);
         }
     }
@@ -113,22 +135,22 @@ public  abstract class Monster extends Character {
             }
         }
 
-        Wall wall = (Wall) gameScreen.getManagement().getOverlapping(this, getX(), getY() + d, "DOWN");
+        Wall wall = (Wall) gameScreen.getManagement().getOverlapping(this, getX(), getY() + d, Direction.DOWN);
         if (wall != null) {
 
-            Point2D r = gameScreen.getManagement().getNearestWall(wall, "RIGHT", "DOWN");
-            Point2D l = gameScreen.getManagement().getNearestWall(wall, "LEFT", "DOWN");
+            Point2D r = gameScreen.getManagement().getNearestWall(wall, Direction.RIGHT, Direction.DOWN);
+            Point2D l = gameScreen.getManagement().getNearestWall(wall, Direction.LEFT, Direction.DOWN);
 
             if (r != null && l == null) goRight();
             else if (r == null && l != null) goLeft();
-            else if (r != null && l != null) {
+            else if (r != null) {
                 if (Math.abs(r.getX() * gameScreen.getComponentSize() - this.getX())
                         < Math.abs(this.getX() - l.getX() * gameScreen.getComponentSize())) goRight();
                 else goLeft();
             } else {
                 goDown = false;
-                boolean rightIsOverlapping = isOverlapping(getX() + 10 * d, getY(), "RIGHT");
-                boolean leftIsOverlapping = isOverlapping(getX() - 10 * d, getY(), "LEFT");
+                boolean rightIsOverlapping = isOverlapping(getX() + 10 * d, getY(), Direction.RIGHT);
+                boolean leftIsOverlapping = isOverlapping(getX() - 10 * d, getY(), Direction.LEFT);
 
                 if (!rightIsOverlapping) {
                     goRight = true;
@@ -139,7 +161,7 @@ public  abstract class Monster extends Character {
                 }
             }
         } else {
-            if (!actions.get("GoDown").equals(getOnAction())) setActions("GoDown");
+            setActionGoDirection(Direction.DOWN);
             setY(getY() + d);
         }
     }
@@ -157,23 +179,23 @@ public  abstract class Monster extends Character {
             }
         }
 
-        Wall wall = (Wall) gameScreen.getManagement().getOverlapping(this, getX() + d, getY(), "RIGHT");
+        Wall wall = (Wall) gameScreen.getManagement().getOverlapping(this, getX() + d, getY(), Direction.RIGHT);
         if (wall != null) {
 
 
-            Point2D down = gameScreen.getManagement().getNearestWall(wall, "DOWN", "RIGHT");
-            Point2D up = gameScreen.getManagement().getNearestWall(wall, "UP", "RIGHT");
+            Point2D down = gameScreen.getManagement().getNearestWall(wall, Direction.DOWN, Direction.RIGHT);
+            Point2D up = gameScreen.getManagement().getNearestWall(wall, Direction.UP, Direction.RIGHT);
 
             if (down != null && up == null) goDown();
             else if (down == null && up != null) goUp();
-            else if (down != null && up != null) {
+            else if (down != null) {
                 if (Math.abs(down.getY() * gameScreen.getComponentSize() - this.getY())
                         < Math.abs(this.getY() - up.getY() * gameScreen.getComponentSize())) goDown();
                 else goUp = true;
             } else {
                 goRight = false;
-                boolean upIsOverLapping = isOverlapping(getX(), getY() - 10 * d, "UP");
-                boolean downIsOverLapping = isOverlapping(getX(), getY() + 10 * d, "DOWN");
+                boolean upIsOverLapping = isOverlapping(getX(), getY() - 10 * d, Direction.UP);
+                boolean downIsOverLapping = isOverlapping(getX(), getY() + 10 * d, Direction.DOWN);
 
                 if (!upIsOverLapping) {
                     goUp = true;
@@ -185,7 +207,7 @@ public  abstract class Monster extends Character {
 
             }
         } else {
-            if (!actions.get("GoRight").equals(getOnAction())) setActions("GoRight");
+            setActionGoDirection(Direction.RIGHT);
             setX(getX() + d);
         }
     }
@@ -202,23 +224,23 @@ public  abstract class Monster extends Character {
                 return;
             }
         }
-        Wall wall = (Wall) gameScreen.getManagement().getOverlapping(this, getX() - d, getY(), "LEFT");
+        Wall wall = (Wall) gameScreen.getManagement().getOverlapping(this, getX() - d, getY(), Direction.LEFT);
         if (wall != null) {
 
-            Point2D down = gameScreen.getManagement().getNearestWall(wall, "DOWN", "LEFT");
-            Point2D up = gameScreen.getManagement().getNearestWall(wall, "UP", "LEFT");
+            Point2D down = gameScreen.getManagement().getNearestWall(wall, Direction.DOWN, Direction.LEFT);
+            Point2D up = gameScreen.getManagement().getNearestWall(wall, Direction.UP, Direction.LEFT);
 
             if (down != null && up == null) goDown();
             else if (down == null && up != null) goUp();
-            else if (down != null && up != null) {
+            else if (down != null) {
                 if (Math.abs(down.getY() * gameScreen.getComponentSize() - this.getY())
                         < Math.abs(this.getY() - up.getY() * gameScreen.getComponentSize())) goDown();
                 else goUp();
             } else {
                 goLeft = false;
 
-                boolean downIsOverlapping = isOverlapping(getX(), getY() + 10 * d, "DOWN");
-                boolean upIsOverlapping = isOverlapping(getX(), getY() - 10 * d, "UP");
+                boolean downIsOverlapping = isOverlapping(getX(), getY() + 10 * d, Direction.DOWN);
+                boolean upIsOverlapping = isOverlapping(getX(), getY() - 10 * d, Direction.UP);
 
                 if (!downIsOverlapping) {
                     goDown = true;
@@ -229,7 +251,7 @@ public  abstract class Monster extends Character {
                 }
             }
         } else {
-            if (!actions.get("GoLeft").equals(getOnAction())) setActions("GoLeft");
+            setActionGoDirection(Direction.LEFT);
             setX(getX() - d);
         }
     }
@@ -267,45 +289,28 @@ public  abstract class Monster extends Character {
     }
 
     @Override
-    public void startMoving() {
-        timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                if (!isDisableMoving.get()) {
-                    move();
-                }
-            }
-        };
-        timer.start();
-    }
-
-    public void attack() {
-        if (actions.get("GoRight").equals(getOnAction())) setActions("AttackRight");
-        else if (actions.get("GoLeft").equals(getOnAction())) setActions("AttackLeft");
-        else if (actions.get("GoUp").equals(getOnAction())) setActions("AttackUp");
-        else if (actions.get("GoDown").equals(getOnAction())) setActions("AttackDown");
-    }
-
-    public String getDirection() {
-        if (goUp) return "UP";
-        if (goDown) return "DOWN";
-        if (goRight) return "RIGHT";
-        if (goLeft) return "LEFT";
-        if (stand) return "STAND";
-        return null;
-    }
-
-    @Override
     public void die() {
         causeDamage.stop();
         disableCauseDamage = true;
         timer.stop();
 
-        super.die();
-        if (actions.get("AttackRight").equals(getOnAction())) setActions("DieRight");
-        else if (actions.get("AttackLeft").equals(getOnAction())) setActions("DieLeft");
-        else if (actions.get("AttackUp").equals(getOnAction())) setActions("DieUp");
-        else if (actions.get("AttackDown").equals(getOnAction())) setActions("DieDown");
+        String onWeapon = getOnWeapon();
+        switch (onDirection) {
+            case UP -> {
+                setActions(onWeapon + "DieUp");
+            }
+            case DOWN -> {
+                setActions(onWeapon + "DieDown");
+            }
+            case LEFT -> {
+                setActions(onWeapon + "DieLeft");
+            }
+            case RIGHT -> {
+                setActions(onWeapon + "DieRight");
+            }
+        }
+
+        isDisableMoving.set(true);
         gameScreen.getManagement().removeMonsterOutOfManage(this);
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), ev -> {
@@ -314,4 +319,34 @@ public  abstract class Monster extends Character {
         }));
         timeline.play();
     }
+
+    @Override
+    public void startMoving() {
+        timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                if (!isDisableMoving.get()) {
+                    move();
+                } else if (!onAttacking){
+                    stand();
+                }
+            }
+        };
+        timer.start();
+    }
+
+    Timeline moveAgain = null;
+
+    public void outOfFreeze(long cycle) {
+        if (moveAgain != null) moveAgain.stop();
+
+        moveAgain = new Timeline(new KeyFrame(Duration.millis(cycle), ev -> {
+            setIsDisableMoving(false);
+            setDisableCauseDamage(false);
+        }));
+
+        moveAgain.setCycleCount(1);
+        moveAgain.play();
+    }
+
 }

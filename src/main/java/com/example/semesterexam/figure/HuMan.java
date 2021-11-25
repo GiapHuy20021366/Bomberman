@@ -13,52 +13,44 @@ public class HuMan extends Figure implements Archery {
     }
 
     @Override
-    public void addUniqueWeapon() {
-        addBow();
-    }
-
-    @Override
-    public void setUniqueWeapon() {
-        super.setWeapon("Bow");
-    }
-
-    @Override
     public void addAllWeapon() {
         addBow();
     }
 
     @Override
-    public void addActionMove()  {
+    public void addActionMoveNormal()  {
 
-        addActions("GoDown", gameScreen.getAction("HuManPack:GoDown"));
-        addActions("GoUp", gameScreen.getAction("HuManPack:GoUp"));
-        addActions("GoLeft", gameScreen.getAction("HuManPack:GoLeft"));
-        addActions("GoRight", gameScreen.getAction("HuManPack:GoRight"));
-        addActions("StandUp", gameScreen.getAction("HuManPack:StandUp"));
-        addActions("StandDown", gameScreen.getAction("HuManPack:StandDown"));
-        addActions("StandLeft", gameScreen.getAction("HuManPack:StandLeft"));
-        addActions("StandRight", gameScreen.getAction("HuManPack:StandRight"));
+        addActions("NormalGoDown", gameScreen.getAction("HuManPack:NormalGoDown"));
+        addActions("NormalGoUp", gameScreen.getAction("HuManPack:NormalGoUp"));
+        addActions("NormalGoLeft", gameScreen.getAction("HuManPack:NormalGoLeft"));
+        addActions("NormalGoRight", gameScreen.getAction("HuManPack:NormalGoRight"));
+        addActions("NormalStandUp", gameScreen.getAction("HuManPack:NormalStandUp"));
+        addActions("NormalStandDown", gameScreen.getAction("HuManPack:NormalStandDown"));
+        addActions("NormalStandLeft", gameScreen.getAction("HuManPack:NormalStandLeft"));
+        addActions("NormalStandRight", gameScreen.getAction("HuManPack:NormalStandRight"));
 
         // Call default Action
-        setActions("StandRight");
+        setActions("NormalStandRight");
 
 
     }
 
+
+
     @Override
-    public void addActionDie() {
-        addActions("DieUp", gameScreen.getAction("HuManPack:DieUp"));
-        addActions("DieRight", gameScreen.getAction("HuManPack:DieRight"));
-        addActions("DieLeft", gameScreen.getAction("HuManPack:DieLeft"));
-        addActions("DieDown", gameScreen.getAction("HuManPack:DieDown"));
+    public void addActionDieNormal() {
+        addActions("NormalDieUp", gameScreen.getAction("HuManPack:NormalDieUp"));
+        addActions("NormalDieRight", gameScreen.getAction("HuManPack:NormalDieRight"));
+        addActions("NormalDieLeft", gameScreen.getAction("HuManPack:NormalDieLeft"));
+        addActions("NormalDieDown", gameScreen.getAction("HuManPack:NormalDieDown"));
     }
 
     @Override
-    public void addActionArchery() {
-        addActions("ArcheryRight", gameScreen.getAction("HuManPack:ArcheryRight"));
-        addActions("ArcheryLeft", gameScreen.getAction("HuManPack:ArcheryLeft"));
-        addActions("ArcheryUp", gameScreen.getAction("HuManPack:ArcheryUp"));
-        addActions("ArcheryDown", gameScreen.getAction("HuManPack:ArcheryDown"));
+    public void addActionAttackArchery() {
+        addActions("ArcheryAttackRight", gameScreen.getAction("HuManPack:ArcheryAttackRight"));
+        addActions("ArcheryAttackLeft", gameScreen.getAction("HuManPack:ArcheryAttackLeft"));
+        addActions("ArcheryAttackUp", gameScreen.getAction("HuManPack:ArcheryAttackUp"));
+        addActions("ArcheryAttackDown", gameScreen.getAction("HuManPack:ArcheryAttackDown"));
     }
 
     @Override
@@ -67,9 +59,46 @@ public class HuMan extends Figure implements Archery {
     }
 
     @Override
+    public void addAttackBow() {
+        attacks.put("Archery", "Bow");
+    }
+
+    @Override
+    public void addActionMoveBow() {
+        addActions("BowGoDown", gameScreen.getAction("HuManPack:NormalGoDown"));
+        addActions("BowGoUp", gameScreen.getAction("HuManPack:NormalGoUp"));
+        addActions("BowGoLeft", gameScreen.getAction("HuManPack:NormalGoLeft"));
+        addActions("BowGoRight", gameScreen.getAction("HuManPack:NormalGoRight"));
+        addActions("BowStandUp", gameScreen.getAction("HuManPack:NormalStandUp"));
+        addActions("BowStandDown", gameScreen.getAction("HuManPack:NormalStandDown"));
+        addActions("BowStandLeft", gameScreen.getAction("HuManPack:NormalStandLeft"));
+        addActions("BowStandRight", gameScreen.getAction("HuManPack:NormalStandRight"));
+    }
+
+    @Override
+    public void addActionDieBow() {
+        addActions("BowDieUp", gameScreen.getAction("HuManPack:NormalDieUp"));
+        addActions("BowDieRight", gameScreen.getAction("HuManPack:NormalDieRight"));
+        addActions("BowDieLeft", gameScreen.getAction("HuManPack:NormalDieLeft"));
+        addActions("BowDieDown", gameScreen.getAction("HuManPack:NormalDieDown"));
+    }
+
+
+    @Override
     public void addAllActions() {
-        addActionMove();
-        addActionDie();
-        addActionArchery();
+        addActionMoveNormal();
+        addActionDieNormal();
+
+        addActionAttackArchery();
+        addActionMoveBow();
+        addActionDieBow();
+
+
+        addAllAttack();
+    }
+
+    @Override
+    public void addAllAttack() {
+        addAttackBow();
     }
 }

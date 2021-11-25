@@ -5,6 +5,8 @@ import com.example.semesterexam.tool.*;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
@@ -14,31 +16,18 @@ import java.util.HashMap;
 public abstract class Subject extends ImageView {
 
     protected IntegerProperty HP = new SimpleIntegerProperty(10000);
-    protected Monster damageBy;
-
-    protected DoubleProperty defaultSpeed = new SimpleDoubleProperty(2);
+    protected DoubleProperty defaultSpeed = new SimpleDoubleProperty();
+    protected DoubleProperty rateSpeed = new SimpleDoubleProperty(1d);
     protected DoubleProperty speedUp = new SimpleDoubleProperty(1.0);
-
-    ImageViewProperties imageViewProperties;
+    protected ImageViewProperties imageViewProperties;
     protected SpriteAnimation onAction = new SpriteAnimation();
     protected long cycle = 1000;
-
     protected String subjectName = "";
-
     protected GameScreen gameScreen;
-
     protected HashMap<String, Action> actions = new HashMap<>();
-
-    public void addActions(String actionName, String filePath) throws IOException {
-        Action newAction;
-        if (filePath.endsWith(".png")) {
-            newAction = new Action(filePath);
-        } else {
-            newAction = new MultiAction(filePath);
-        }
-        actions.put(actionName, newAction);
-
-    }
+    protected Direction onDirection;
+    protected DoubleProperty componentSize = new SimpleDoubleProperty();
+    protected DoubleProperty rateSize = new SimpleDoubleProperty(1d);
 
     public void addActions(String actionName, Action newAction) {
         actions.put(actionName, newAction);
@@ -46,6 +35,7 @@ public abstract class Subject extends ImageView {
 
     public void setActions(Action action) {
         if (onAction != null) onAction.stop();
+
 
         if (action.getClass() == Action.class) {
             imageViewProperties = action.imageViewProperties;
@@ -60,8 +50,12 @@ public abstract class Subject extends ImageView {
         onAction.setAction(action);
         onAction.play();
     }
+
     public void setActions(String actionName) {
         if (actions.get(actionName).equals(getOnAction())) return;
+
+        setDirectionDependOnAction(actionName);
+
 
         if (onAction != null) onAction.stop();
 
@@ -79,9 +73,18 @@ public abstract class Subject extends ImageView {
         onAction.play();
     }
 
+    public void setDirectionDependOnAction(String actionName) {
+        if (actionName.endsWith("Up")) onDirection = Direction.UP;
+        else if (actionName.endsWith("Down")) onDirection = Direction.DOWN;
+        else if (actionName.endsWith("Left")) onDirection = Direction.LEFT;
+        else if (actionName.endsWith("Right")) onDirection = Direction.RIGHT;
+    }
+
     public void setActions(String actionName, long cycle, int repeat) {
         if (actions.get(actionName).equals(getOnAction())) return;
         if (onAction != null) onAction.stop();
+
+        setDirectionDependOnAction(actionName);
 
         if (actions.get(actionName).getClass() == Action.class) {
             imageViewProperties = actions.get(actionName).imageViewProperties;
@@ -101,14 +104,55 @@ public abstract class Subject extends ImageView {
 
     public Subject(GameScreen gameScreen) throws IOException {
         this.gameScreen = gameScreen;
+
+        bidingSize();
+        bindingSpeed();
+
+        rateSize.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                bidingSize();
+            }
+        });
+
         HP.addListener(((observableValue, oldValue, newValue) -> {
             if (HP.get() <= 0) {
                 die();
             }
         }));
+
+        defaultSpeed.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                bindingSpeed();
+            }
+        });
     }
 
-    public Subject() {
+    public void bindingSpeed() {
+        defaultSpeed.unbind();
+
+        defaultSpeed.bind(gameScreen.getSizeProperties().divide(20d));
+    }
+
+    public void bidingSize() {
+        componentSize.unbind();
+
+        componentSize.bind(gameScreen.getSizeProperties().multiply(rateSize));
+
+        componentSize.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+                updateLocationWhenSizeChanged(oldValue.doubleValue(), newValue.doubleValue());
+            }
+        });
+    }
+
+    public void updateLocationWhenSizeChanged(double oldValue, double newValue) {
+        setX(getX() * newValue / oldValue);
+        setY(getY() * newValue / oldValue);
+        setFitWidth(newValue);
+        setFitHeight(newValue);
     }
 
     public void createAnimation() {
@@ -131,6 +175,10 @@ public abstract class Subject extends ImageView {
         return subjectName;
     }
 
+    public Direction getOnDirection() {
+        return onDirection;
+    }
+
 
     public void draw() {
         setX(getX() * gameScreen.getComponentSize() / getFitWidth());
@@ -139,25 +187,20 @@ public abstract class Subject extends ImageView {
         setFitHeight(gameScreen.getComponentSize());
     }
 
+
+    @Deprecated
     public void setDefaultSpeed(double rate) {
         defaultSpeed.set(defaultSpeed.get() * rate);
     }
+
     public double getDefaultSpeed() {
         return defaultSpeed.get();
-    }
-
-    public void die(Monster dieBy) {
-        // to override
     }
 
     public void die() {
         setVisible(false);
     }
 
-    public void getDamage(int damage, Monster m) {
-        damageBy = m;
-        HP.set(HP.get() - damage);
-    }
 
     public int getHP() {
         return HP.get();
@@ -171,6 +214,14 @@ public abstract class Subject extends ImageView {
 
     public void getDamage(int damage) {
         HP.set(HP.get() - damage);
+    }
+
+    public void setSpeedUp(double speedUp) {
+        this.speedUp.set(speedUp);
+    }
+
+    public double getSpeedUp() {
+        return speedUp.get();
     }
 
 }

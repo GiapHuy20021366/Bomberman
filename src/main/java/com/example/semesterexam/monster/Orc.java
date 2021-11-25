@@ -2,9 +2,6 @@ package com.example.semesterexam.monster;
 
 import com.example.semesterexam.core.Monster;
 import com.example.semesterexam.manage.GameScreen;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -16,40 +13,51 @@ public class Orc extends Monster {
 
 
     @Override
-    public void addActionMove() {
-        addActions("GoDown", gameScreen.getAction("OrcPack:GoDown"));
-        addActions("GoUp", gameScreen.getAction("OrcPack:GoUp"));
-        addActions("GoLeft", gameScreen.getAction("OrcPack:GoLeft"));
-        addActions("GoRight", gameScreen.getAction("OrcPack:GoRight"));
-        addActions("StandUp", gameScreen.getAction("OrcPack:StandUp"));
-        addActions("StandDown", gameScreen.getAction("OrcPack:StandDown"));
-        addActions("StandLeft", gameScreen.getAction("OrcPack:StandLeft"));
-        addActions("StandRight", gameScreen.getAction("OrcPack:StandRight"));
+    public void addActionMoveNormal() {
+        addActions("NormalGoDown", gameScreen.getAction("OrcPack:GoDown"));
+        addActions("NormalGoUp", gameScreen.getAction("OrcPack:GoUp"));
+        addActions("NormalGoLeft", gameScreen.getAction("OrcPack:GoLeft"));
+        addActions("NormalGoRight", gameScreen.getAction("OrcPack:GoRight"));
+        addActions("NormalStandUp", gameScreen.getAction("OrcPack:StandUp"));
+        addActions("NormalStandDown", gameScreen.getAction("OrcPack:StandDown"));
+        addActions("NormalStandLeft", gameScreen.getAction("OrcPack:StandLeft"));
+        addActions("NormalStandRight", gameScreen.getAction("OrcPack:StandRight"));
 
-        setActions("StandRight");
+        setActions("NormalStandRight");
     }
 
     @Override
     public void addActionAttack() {
-        addActions("AttackUp", gameScreen.getAction("OrcPack:AttackUp"));
-        addActions("AttackRight", gameScreen.getAction("OrcPack:AttackRight"));
-        addActions("AttackLeft", gameScreen.getAction("OrcPack:AttackLeft"));
-        addActions("AttackDown", gameScreen.getAction("OrcPack:AttackDown"));
+        addActions("NormalAttackUp", gameScreen.getAction("OrcPack:AttackUp"));
+        addActions("NormalAttackRight", gameScreen.getAction("OrcPack:AttackRight"));
+        addActions("NormalAttackLeft", gameScreen.getAction("OrcPack:AttackLeft"));
+        addActions("NormalAttackDown", gameScreen.getAction("OrcPack:AttackDown"));
     }
 
     @Override
-    public void addActionDie() {
-        addActions("DieUp", gameScreen.getAction("OrcPack:DieUp"));
-        addActions("DieRight", gameScreen.getAction("OrcPack:DieRight"));
-        addActions("DieLeft", gameScreen.getAction("OrcPack:DieLeft"));
-        addActions("DieDown", gameScreen.getAction("OrcPack:DieDown"));
+    public void addActionDieNormal() {
+        addActions("NormalDieUp", gameScreen.getAction("OrcPack:DieUp"));
+        addActions("NormalDieRight", gameScreen.getAction("OrcPack:DieRight"));
+        addActions("NormalDieLeft", gameScreen.getAction("OrcPack:DieLeft"));
+        addActions("NormalDieDown", gameScreen.getAction("OrcPack:DieDown"));
     }
 
     @Override
     public void addAllActions() {
-        addActionMove();
-        addActionDie();
+        addActionMoveNormal();
+        addActionDieNormal();
         addActionAttack();
+    }
+
+
+    @Override
+    public void addAllWeapon() {
+
+    }
+
+    @Override
+    public void addAllAttack() {
+
     }
 
 }

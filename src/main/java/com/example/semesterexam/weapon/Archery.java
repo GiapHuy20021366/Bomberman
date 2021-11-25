@@ -1,6 +1,10 @@
 package com.example.semesterexam.weapon;
 
 public interface Archery {
-    void addActionArchery();
+    void addActionAttackArchery();
     void addBow();
+    void addAttackBow();
+    void addActionMoveBow();
+    void addActionDieBow();
+
 }

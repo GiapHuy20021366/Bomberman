@@ -1,12 +1,15 @@
 package com.example.semesterexam.manage;
 
+import com.example.semesterexam.core.Direction;
 import com.example.semesterexam.core.Figure;
 import com.example.semesterexam.core.Monster;
 import com.example.semesterexam.core.Character;
 import com.example.semesterexam.figure.HuMan;
 import com.example.semesterexam.figure.Magician;
+import com.example.semesterexam.figure.SuperHuMan;
 import com.example.semesterexam.monster.Orc;
 import com.example.semesterexam.monster.Skeleton;
+import com.example.semesterexam.monster.Winged;
 import com.example.semesterexam.tool.Action;
 import com.example.semesterexam.tool.ViewPlayer;
 import com.example.semesterexam.weapon.Boom;
@@ -14,7 +17,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -45,15 +52,19 @@ public class GameScreen {
         actions.loadAllActionsFrom(".\\Action\\SkeletonPack.txt");
         actions.loadAllActionsFrom(".\\Action\\FirePack.txt");
         actions.loadAllActionsFrom(".\\Action\\ArrowPack.txt");
-        actions.loadAllActionsFrom(".\\Action\\HuManPack.txt");
-        actions.loadAllActionsFrom(".\\Action\\MagicianPack.txt");
+        actions.loadAllActionsFrom(".\\Action\\SuperHuManPack.txt");
+        actions.loadAllActionsFrom(".\\Action\\IceBulletPack.txt");
+        actions.loadAllActionsFrom(".\\Action\\FireBulletPack.txt");
+        actions.loadAllActionsFrom(".\\Action\\ItemsPack.txt");
+        actions.loadAllActionsFrom(".\\Action\\WingedPack.txt");
+        actions.loadAllActionsFrom(".\\Action\\SimpleFireGoal.txt");
 
 
         // Set management
         management.gameScreen = this;
 
         // Create Character to control
-        character = new HuMan(this);
+        character = new SuperHuMan(this);
         character.setName("Magician");
         character.setDefaultLocation(1, 1);
         character.setDefaultSize(1d);
@@ -93,7 +104,7 @@ public class GameScreen {
         monster1.setDefaultSize(1.2d);
         monster1.setDefaultLocation(1, 10);
         monster1.addAllActions();
-        monster1.setDefaultDirection(Monster.Go.GO_UP);
+        monster1.setDefaultDirection(Direction.UP);
         monster1.startCauseDamage();
         monster1.startMoving();
         management.addMonster(monster1);
@@ -109,15 +120,24 @@ public class GameScreen {
         // Using for resize
         componentSize.addListener(((observableValue, oldValue, newValue) -> {
             map.defineHeightWidth();
-            management.reDraw();
+//            management.reDraw();
             viewPlayer.moveViewport();
         }));
 
         monsters();
 
-        Action action = getAction("Huy @ test!");
+//        Action action = getAction("Huy @ test!");
+//        return viewPlayer;
 
         return game;
+    }
+
+    public EventHandler<KeyEvent> getKeyPressedEvent() {
+        return character.getKeyPressedEvent();
+    }
+
+    public EventHandler<KeyEvent> getKeyReleasedEvent() {
+        return character.getKeyKeyReleasedEvent();
     }
 
 
@@ -133,13 +153,17 @@ public class GameScreen {
         return componentSize.get();
     }
 
+    public DoubleProperty getSizeProperties() {
+        return componentSize;
+    }
+
     public void setVision(double rateVision) {
         double newSize = componentSize.get() * rateVision;
         if (newSize * map.getMAX_ROW() < character.getViewValue() * 2) return;
         if (newSize * map.getMAX_COLUMN() < character.getViewValue() * 2) return;
 
         componentSize.set(newSize);
-        management.resetDefaultSpeed(rateVision);
+//        management.resetDefaultSpeed(rateVision);
 
     }
 
@@ -153,7 +177,7 @@ public class GameScreen {
         monster1.setDefaultSize(1d);
         monster1.setDefaultLocation(x, y);
         monster1.addAllActions();
-        monster1.setDefaultDirection(Monster.Go.GO_RIGHT);
+        monster1.setDefaultDirection(Direction.RIGHT);
         monster1.startCauseDamage();
         monster1.startMoving();
         management.addMonster(monster1);
@@ -191,17 +215,19 @@ public class GameScreen {
             Random random = new Random();
             try {
                 int hex = random.nextInt(100);
-                if (hex < 50) monster1 = new Orc(this);
-                else monster1 = new Skeleton(this);
+                if (hex < 30) monster1 = new Orc(this);
+                else if (hex < 60) monster1 = new Skeleton(this);
+                else  monster1 = new Winged(this);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
             monster1.setDefaultSize(1d);
-            monster1.setDefaultSpeed(character.getDefaultSpeed() / 2d);
+//            monster1.setDefaultSpeed(character.getDefaultSpeed() / 2d);
             monster1.setDefaultLocation(2, 1);
             monster1.addAllActions();
-            monster1.setDefaultDirection(Monster.Go.GO_RIGHT);
+            monster1.addAllWeapon();
+            monster1.setDefaultDirection(Direction.RIGHT);
             monster1.startCauseDamage();
             monster1.startMoving();
             management.addMonster(monster1);

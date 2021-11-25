@@ -1,5 +1,6 @@
 package com.example.semesterexam.manage;
 
+import com.example.semesterexam.core.Direction;
 import com.example.semesterexam.core.Monster;
 import com.example.semesterexam.core.Wall;
 import com.example.semesterexam.lanscape.ConcreteWall;
@@ -85,7 +86,7 @@ public class Map extends AnchorPane {
                     monster1.setDefaultSize(1d);
                     monster1.setDefaultLocation(k, i);
                     monster1.addAllActions();
-                    monster1.setDefaultDirection(Monster.Go.GO_RIGHT);
+                    monster1.setDefaultDirection(Direction.RIGHT);
                     monster1.startCauseDamage();
                     monster1.startMoving();
                     gameScreen.getManagement().addMonster(monster1);

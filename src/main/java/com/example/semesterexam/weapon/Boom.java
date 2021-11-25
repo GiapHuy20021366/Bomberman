@@ -21,14 +21,10 @@ public class Boom extends Subject {
     protected Rectangle2D rowPow;
     protected Rectangle2D colPow;
     protected List<Fire> fires = new ArrayList<>();
-    protected double rangeTop = 1.5d;
-    protected double rangeDown = 1.5d;
-    protected double rangeLeft = 1.5d;
-    protected double rangeRight = 1.5d;
-
-    public Boom() throws IOException {
-        super();
-    }
+    public double rangeTop = 1.5d;
+    public double rangeDown = 1.5d;
+    public double rangeLeft = 1.5d;
+    public double rangeRight = 1.5d;
 
     public void setRange(double range) {
         this.range = range;
