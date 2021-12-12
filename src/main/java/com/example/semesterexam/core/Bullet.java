@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 import java.io.IOException;
 
-public abstract class Bullet extends Subject{
+public abstract class Bullet extends Subject {
     public double dx = 0d;
     public double dy = 0d;
     protected DoubleProperty defaultSpeed = new SimpleDoubleProperty(gameScreen.getComponentSize() / 20d);
@@ -17,7 +17,7 @@ public abstract class Bullet extends Subject{
     public double widthReality;
     public double heightReality;
     protected Subject subject = null;
-    protected Character owner =null;
+    protected Character owner;
 
     public Bullet(GameScreen gameScreen, Character owner) throws IOException {
         super(gameScreen);
@@ -86,4 +86,5 @@ public abstract class Bullet extends Subject{
     }
 
     public abstract String getName();
+
 }

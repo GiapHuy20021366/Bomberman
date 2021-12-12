@@ -1,0 +1,1211 @@
+@startuml
+
+title __SEMESTEREXAM's Class Diagram__\n
+
+  namespace  {
+    namespace om.example.semesterexam {
+      class com.example.semesterexam.Character {
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace accessory {
+        class com.example.semesterexam.accessory.Bar {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace accessory {
+        class com.example.semesterexam.accessory.BloodBar {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Bullet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        enum Bullets {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Character {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        enum Direction {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Effect {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Figure {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Item {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        enum ItemsName {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Monster {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Subject {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Wall {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Weapon {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace creategame {
+        class com.example.semesterexam.creategame.ChooseController {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace creategame {
+        class com.example.semesterexam.creategame.FigureDisplay {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace creategame {
+        class com.example.semesterexam.creategame.ImagesStart {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace creategame {
+        class com.example.semesterexam.creategame.MapDisplay {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.BuffDamage {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.EffFasterPutBoom {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.EffImmortal {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.EffPlusHP {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.Freeze {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.FreezeTime {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconArchery {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconBeSeen {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconBlueSword {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconBomber {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconBuff {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconOrc {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconRedSlash {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconSatan {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconSkeleton {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconSkullcap {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconWing {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconWolf {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconZombie {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.Speed {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace exception {
+        class com.example.semesterexam.exception.AttackNameNotFound {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace figure {
+        class com.example.semesterexam.figure.Magician {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace figure {
+        class com.example.semesterexam.figure.SuperHuMan {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace item {
+        class com.example.semesterexam.item.BalloonArrow {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace item {
+        class com.example.semesterexam.item.FasterPutBoom {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace item {
+        class com.example.semesterexam.item.Immortal {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace item {
+        class com.example.semesterexam.item.IncreaseDamage {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace item {
+        class com.example.semesterexam.item.PlusBullet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace item {
+        class com.example.semesterexam.item.PlusHP {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace item {
+        class com.example.semesterexam.item.SpeedUp {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace item {
+        class com.example.semesterexam.item.StopTime {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace lanscape {
+        class com.example.semesterexam.lanscape.ConcreteWall {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace lanscape {
+        class com.example.semesterexam.lanscape.Gate {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace lanscape {
+        class com.example.semesterexam.lanscape.Grass {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace lanscape {
+        class com.example.semesterexam.lanscape.Lava {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace lanscape {
+        class com.example.semesterexam.lanscape.SoftWall {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace lanscape {
+        class com.example.semesterexam.lanscape.Stone {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace main {
+        class com.example.semesterexam.main.Controller {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace main {
+        class com.example.semesterexam.main.Main {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.ActionsManagement {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.AdjustVolumeManagement {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.Control {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.GamePlay {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.GameScreen {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.Map {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.MediaManagement {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.MiniMap {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.ObjectManagement {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace monster {
+        class com.example.semesterexam.monster.BossHuMan {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace monster {
+        class com.example.semesterexam.monster.Orc {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace monster {
+        class com.example.semesterexam.monster.Satan {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace monster {
+        class com.example.semesterexam.monster.Skeleton {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace monster {
+        class com.example.semesterexam.monster.Winged {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace monster {
+        class com.example.semesterexam.monster.Wolf {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace monster {
+        class com.example.semesterexam.monster.Zombie {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace task {
+        abstract class com.example.semesterexam.task.MyTask {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.Action {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.AstraPath {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.Cell {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.FigureInformation {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.ImageViewProperties {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.MiniCartoon {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.MultiAction {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.MultiSpriteAnimation {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.Player {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.SpriteAnimation {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.TransitionService {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.ViewPlayer {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        interface com.example.semesterexam.weapon.Archery {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.Arrow {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        interface com.example.semesterexam.weapon.BlueSlash {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.BlueSword {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.Boom {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.Bow {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        interface com.example.semesterexam.weapon.BuffHP {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.Fire {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.FireBullet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.IceBullet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        interface com.example.semesterexam.weapon.Lighting {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.Mace {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.MaceBullet {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.MagicWand {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        interface com.example.semesterexam.weapon.RedSlash {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.RedSword {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.ReduceHP {
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.SimpleFireGoal {
+        }
+      }
+    }
+  }
+  
+
+  com.example.semesterexam.accessory.Bar -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.accessory.Bar o-- com.example.semesterexam.core.Subject : s
+  com.example.semesterexam.accessory.BloodBar o-- com.example.semesterexam.accessory.Bar : bar
+  com.example.semesterexam.accessory.BloodBar o-- com.example.semesterexam.accessory.Bar : currentBlood
+  com.example.semesterexam.accessory.BloodBar o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.accessory.BloodBar o-- com.example.semesterexam.accessory.Bar : maxBlood
+  com.example.semesterexam.accessory.BloodBar o-- com.example.semesterexam.accessory.Bar : prevBlood
+  com.example.semesterexam.accessory.BloodBar o-- com.example.semesterexam.core.Subject : s
+  com.example.semesterexam.core.Bullet -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.core.Bullet o-- com.example.semesterexam.core.Character : owner
+  com.example.semesterexam.core.Bullet o-- com.example.semesterexam.core.Subject : subject
+  com.example.semesterexam.core.Character -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.core.Character o-- com.example.semesterexam.accessory.BloodBar : bloodBar
+  com.example.semesterexam.core.Character o-- com.example.semesterexam.core.Weapon : onWeapon
+  com.example.semesterexam.core.Effect -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.core.Effect o-- com.example.semesterexam.core.Character : character
+  com.example.semesterexam.core.Figure -up-|> com.example.semesterexam.core.Character
+  com.example.semesterexam.core.Item -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.core.Item o-- com.example.semesterexam.core.Effect : effect
+  com.example.semesterexam.core.Item o-- com.example.semesterexam.core.Figure : figure
+  com.example.semesterexam.core.Monster -up-|> com.example.semesterexam.core.Character
+  com.example.semesterexam.core.Subject -up-|> javafx.scene.image.ImageView
+  com.example.semesterexam.core.Subject o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.core.Subject o-- com.example.semesterexam.tool.ImageViewProperties : imageViewProperties
+  com.example.semesterexam.core.Subject o-- com.example.semesterexam.core.Subject : justDamage
+  com.example.semesterexam.core.Subject o-- com.example.semesterexam.tool.SpriteAnimation : onAction
+  com.example.semesterexam.core.Subject o-- com.example.semesterexam.core.Direction : onDirection
+  com.example.semesterexam.core.Wall -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.core.Weapon o-- com.example.semesterexam.core.Bullet : bullet
+  com.example.semesterexam.core.Weapon o-- com.example.semesterexam.core.Character : character
+  com.example.semesterexam.core.Weapon o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.core.Weapon o-- com.example.semesterexam.core.Direction : onDirection
+  com.example.semesterexam.creategame.ChooseController .up.|> javafx.fxml.Initializable
+  com.example.semesterexam.creategame.ChooseController o-- com.example.semesterexam.creategame.FigureDisplay : figureDisplay1
+  com.example.semesterexam.creategame.ChooseController o-- com.example.semesterexam.creategame.FigureDisplay : figureDisplay2
+  com.example.semesterexam.creategame.ChooseController o-- com.example.semesterexam.creategame.MapDisplay : mapDisplay
+  com.example.semesterexam.effect.BuffDamage -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.EffFasterPutBoom -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.EffImmortal -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.EffPlusHP -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.Freeze -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.FreezeTime -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconArchery -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconBeSeen -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconBlueSword -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconBomber -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconBuff -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconOrc -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconRedSlash -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconSatan -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconSkeleton -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconSkullcap -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconWing -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconWolf -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconZombie -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.Speed -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.figure.Magician .up.|> com.example.semesterexam.weapon.BuffHP
+  com.example.semesterexam.figure.Magician .up.|> com.example.semesterexam.weapon.Lighting
+  com.example.semesterexam.figure.Magician -up-|> com.example.semesterexam.core.Figure
+  com.example.semesterexam.figure.SuperHuMan .up.|> com.example.semesterexam.weapon.Archery
+  com.example.semesterexam.figure.SuperHuMan .up.|> com.example.semesterexam.weapon.BlueSlash
+  com.example.semesterexam.figure.SuperHuMan .up.|> com.example.semesterexam.weapon.RedSlash
+  com.example.semesterexam.figure.SuperHuMan -up-|> com.example.semesterexam.core.Figure
+  com.example.semesterexam.item.BalloonArrow -up-|> com.example.semesterexam.core.Item
+  com.example.semesterexam.item.BalloonArrow o-- com.example.semesterexam.core.ItemsName : name
+  com.example.semesterexam.item.FasterPutBoom -up-|> com.example.semesterexam.core.Item
+  com.example.semesterexam.item.FasterPutBoom o-- com.example.semesterexam.core.ItemsName : name
+  com.example.semesterexam.item.Immortal -up-|> com.example.semesterexam.core.Item
+  com.example.semesterexam.item.Immortal o-- com.example.semesterexam.core.ItemsName : name
+  com.example.semesterexam.item.IncreaseDamage -up-|> com.example.semesterexam.core.Item
+  com.example.semesterexam.item.IncreaseDamage o-- com.example.semesterexam.core.ItemsName : name
+  com.example.semesterexam.item.PlusBullet -up-|> com.example.semesterexam.core.Item
+  com.example.semesterexam.item.PlusHP -up-|> com.example.semesterexam.core.Item
+  com.example.semesterexam.item.SpeedUp -up-|> com.example.semesterexam.core.Item
+  com.example.semesterexam.item.SpeedUp o-- com.example.semesterexam.core.ItemsName : name
+  com.example.semesterexam.item.StopTime -up-|> com.example.semesterexam.core.Item
+  com.example.semesterexam.item.StopTime o-- com.example.semesterexam.core.ItemsName : name
+  com.example.semesterexam.lanscape.ConcreteWall -up-|> com.example.semesterexam.core.Wall
+  com.example.semesterexam.lanscape.Gate -up-|> com.example.semesterexam.lanscape.SoftWall
+  com.example.semesterexam.lanscape.Grass -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.lanscape.Lava -up-|> com.example.semesterexam.lanscape.Grass
+  com.example.semesterexam.lanscape.SoftWall -up-|> com.example.semesterexam.core.Wall
+  com.example.semesterexam.lanscape.Stone -up-|> com.example.semesterexam.lanscape.Grass
+  com.example.semesterexam.main.Main -up-|> javafx.application.Application
+  com.example.semesterexam.manage.AdjustVolumeManagement -up-|> javafx.scene.layout.AnchorPane
+  com.example.semesterexam.manage.AdjustVolumeManagement o-- com.example.semesterexam.manage.GamePlay : gamePlay
+  com.example.semesterexam.manage.Control o-- com.example.semesterexam.core.Figure : figure1
+  com.example.semesterexam.manage.Control o-- com.example.semesterexam.core.Figure : figure2
+  com.example.semesterexam.manage.Control o-- com.example.semesterexam.tool.ViewPlayer : viewPlayer
+  com.example.semesterexam.manage.GamePlay o-- com.example.semesterexam.tool.Player : end
+  com.example.semesterexam.manage.GamePlay o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.manage.GamePlay o-- com.example.semesterexam.tool.Player : theme
+  com.example.semesterexam.manage.GamePlay o-- com.example.semesterexam.manage.AdjustVolumeManagement : volumeView
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.manage.ActionsManagement : actions
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.core.Figure : character1
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.core.Figure : character2
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.manage.GamePlay : gamePlay
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.manage.ObjectManagement : management
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.manage.Map : map
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.manage.MediaManagement : mediaManagement
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.manage.MiniMap : miniMap
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.task.MyTask : task
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.tool.ViewPlayer : viewPlayer
+  com.example.semesterexam.manage.Map -up-|> javafx.scene.layout.AnchorPane
+  com.example.semesterexam.manage.Map o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.manage.MiniMap -up-|> javafx.scene.layout.AnchorPane
+  com.example.semesterexam.manage.MiniMap o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.manage.MiniMap o-- com.example.semesterexam.manage.Map : map
+  com.example.semesterexam.manage.ObjectManagement o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.manage.ObjectManagement o-- com.example.semesterexam.lanscape.Gate : gate
+  com.example.semesterexam.manage.ObjectManagement o-- com.example.semesterexam.manage.MiniMap : miniMap
+  com.example.semesterexam.monster.BossHuMan -up-|> com.example.semesterexam.core.Monster
+  com.example.semesterexam.monster.Orc -up-|> com.example.semesterexam.core.Monster
+  com.example.semesterexam.monster.Satan -up-|> com.example.semesterexam.core.Monster
+  com.example.semesterexam.monster.Skeleton -up-|> com.example.semesterexam.core.Monster
+  com.example.semesterexam.monster.Winged -up-|> com.example.semesterexam.core.Monster
+  com.example.semesterexam.monster.Wolf -up-|> com.example.semesterexam.core.Monster
+  com.example.semesterexam.monster.Zombie -up-|> com.example.semesterexam.core.Monster
+  com.example.semesterexam.task.MyTask -up-|> javafx.concurrent.Task
+  com.example.semesterexam.tool.Action o-- com.example.semesterexam.tool.ImageViewProperties : imageViewProperties
+  com.example.semesterexam.tool.Cell o-- com.example.semesterexam.tool.Cell : parent
+  com.example.semesterexam.tool.FigureInformation -up-|> javafx.scene.layout.AnchorPane
+  com.example.semesterexam.tool.FigureInformation o-- com.example.semesterexam.core.Figure : figure1
+  com.example.semesterexam.tool.FigureInformation o-- com.example.semesterexam.core.Figure : figure2
+  com.example.semesterexam.tool.MiniCartoon -up-|> javafx.scene.image.ImageView
+  com.example.semesterexam.tool.MiniCartoon o-- com.example.semesterexam.manage.MiniMap : miniMap
+  com.example.semesterexam.tool.MiniCartoon o-- com.example.semesterexam.core.Subject : s
+  com.example.semesterexam.tool.MultiAction -up-|> com.example.semesterexam.tool.Action
+  com.example.semesterexam.tool.MultiSpriteAnimation -up-|> com.example.semesterexam.tool.SpriteAnimation
+  com.example.semesterexam.tool.SpriteAnimation -up-|> javafx.animation.Transition
+  com.example.semesterexam.tool.SpriteAnimation o-- com.example.semesterexam.tool.Action : action
+  com.example.semesterexam.tool.SpriteAnimation o-- com.example.semesterexam.tool.ImageViewProperties : properties
+  com.example.semesterexam.tool.ViewPlayer -up-|> javafx.scene.layout.Pane
+  com.example.semesterexam.tool.ViewPlayer o-- com.example.semesterexam.manage.Map : map
+  com.example.semesterexam.tool.ViewPlayer o-- com.example.semesterexam.core.Figure : player
+  com.example.semesterexam.weapon.Arrow -up-|> com.example.semesterexam.core.Bullet
+  com.example.semesterexam.weapon.BlueSword -up-|> com.example.semesterexam.core.Weapon
+  com.example.semesterexam.weapon.Boom -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.weapon.Boom o-- com.example.semesterexam.core.Subject : owner
+  com.example.semesterexam.weapon.Bow -up-|> com.example.semesterexam.core.Weapon
+  com.example.semesterexam.weapon.Fire -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.weapon.FireBullet -up-|> com.example.semesterexam.core.Bullet
+  com.example.semesterexam.weapon.IceBullet -up-|> com.example.semesterexam.core.Bullet
+  com.example.semesterexam.weapon.Mace -up-|> com.example.semesterexam.core.Weapon
+  com.example.semesterexam.weapon.MaceBullet -up-|> com.example.semesterexam.core.Bullet
+  com.example.semesterexam.weapon.MagicWand -up-|> com.example.semesterexam.core.Weapon
+  com.example.semesterexam.weapon.RedSword -up-|> com.example.semesterexam.core.Weapon
+  com.example.semesterexam.weapon.ReduceHP -up-|> com.example.semesterexam.core.Bullet
+  com.example.semesterexam.weapon.SimpleFireGoal -up-|> com.example.semesterexam.core.Bullet
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

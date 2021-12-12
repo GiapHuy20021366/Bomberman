@@ -43,22 +43,9 @@ public class FireBullet extends Bullet {
                 Grass[] grasses = gameScreen.getManagement().getGrassAt(getThis());
                 for (Grass grass : grasses) {
                     if (grass != null) {
-                        grass.getDamage(1001);
+                        grass.getDamage(owner.getBaseDamage());
                     }
                 }
-//                if (grass != null) {
-//                    Boom boom = null;
-//                    try {
-//                        boom = new Boom(getX(), getY(), gameScreen);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    boom.setDamage(1001);
-//                    boom.setAllRange(1d);
-//                    gameScreen.getMap().getChildren().add(boom);
-//                    boom.countdown(1);
-////                    grass.getDamage(1001);
-//                }
             }
         };
         fire.start();
@@ -76,7 +63,7 @@ public class FireBullet extends Bullet {
 
         Boom boom = null;
         try {
-            boom = new Boom(getX(), getY(), gameScreen);
+            boom = new Boom(this, gameScreen);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,11 +78,9 @@ public class FireBullet extends Bullet {
             boom.setX(this.getX());
             boom.setY(this.getY());
         }
-        boom.setDamage(999);
-//        boom.setRange(20d);
-        boom.setAllRange(20d);
+        boom.setDamage(owner.getBaseDamage() * owner.getIncreaseDamage());
+        boom.setAllRange(5d);
         adjustRange(boom);
-//        boom.setActions("QuaBoom");
         gameScreen.getMap().getChildren().add(boom);
         boom.countdown(1);
     }

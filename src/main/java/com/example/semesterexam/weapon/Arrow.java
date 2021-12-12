@@ -2,6 +2,7 @@ package com.example.semesterexam.weapon;
 
 import com.example.semesterexam.core.Bullet;
 import com.example.semesterexam.core.Character;
+import com.example.semesterexam.core.Monster;
 import com.example.semesterexam.core.Subject;
 import com.example.semesterexam.lanscape.ConcreteWall;
 import com.example.semesterexam.manage.GameScreen;
@@ -11,8 +12,8 @@ import java.io.IOException;
 
 public class Arrow extends Bullet {
 
-    public Arrow(GameScreen gameScreen, Character character) throws IOException {
-        super(gameScreen, character);
+    public Arrow(GameScreen gameScreen, Character owner) throws IOException {
+        super(gameScreen, owner);
     }
 
     @Override
@@ -24,11 +25,13 @@ public class Arrow extends Bullet {
         }
     }
 
+
+
     @Override
     public void effect() {
         Boom boom = null;
         try {
-            boom = new Boom(getX(), getY(), gameScreen);
+            boom = new Boom(this, gameScreen);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,13 +46,14 @@ public class Arrow extends Bullet {
             boom.setX(this.getX());
             boom.setY(this.getY());
         }
-        boom.setDamage(999);
-//        boom.setRange(20d);
-        boom.setAllRange(15d);
+        boom.setDamage(owner.getBaseDamage() * owner.getIncreaseDamage());
+        boom.setAllRange(3d);
+        if (owner instanceof Monster) {
+            boom.setAllRange(1.5d);
+        }
         adjustRange(boom);
-//        boom.setActions("QuaBoom");
         gameScreen.getMap().getChildren().add(boom);
-        boom.countdown(1);
+        boom.countdown(10);
     }
 
 

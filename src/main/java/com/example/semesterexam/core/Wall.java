@@ -20,6 +20,10 @@ public abstract class Wall extends Subject {
         // Call default
         setActions("Default");
 
+        setFitWidth(gameScreen.getComponentSize());
+        setFitHeight(gameScreen.getComponentSize());
+
+
 //        setActions("Multi");
     }
 

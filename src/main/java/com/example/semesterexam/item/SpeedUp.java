@@ -1,7 +1,10 @@
 package com.example.semesterexam.item;
 
+import com.example.semesterexam.core.Effect;
 import com.example.semesterexam.core.Item;
 import com.example.semesterexam.core.ItemsName;
+import com.example.semesterexam.effect.EffPlusHP;
+import com.example.semesterexam.effect.Speed;
 import com.example.semesterexam.manage.GameScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,7 +15,7 @@ import java.io.IOException;
 public class SpeedUp extends Item {
     private long cycle = 5000;
     private Timeline end;
-    private ItemsName name = ItemsName.SpeedUp;
+    private final ItemsName name = ItemsName.SpeedUp;
     public SpeedUp(double x, double y, GameScreen gameScreen) throws IOException {
         super(x, y, gameScreen);
     }
@@ -29,9 +32,16 @@ public class SpeedUp extends Item {
 
         figure.addItems(this);
 
+        try {
+            Effect plus = new Speed(gameScreen, figure, cycle);
+            plus.setAll();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         effecting = true;
-        figure.setSpeedUp(figure.getSpeedUp()*1.5d);
-        end = new Timeline(new KeyFrame(Duration.millis(timeOut), ev -> {
+        figure.setSpeedUp(figure.getSpeedUp()*1.3d);
+        end = new Timeline(new KeyFrame(Duration.millis(cycle), ev -> {
            disableEffect();
         }));
         end.setCycleCount(1);
@@ -42,7 +52,7 @@ public class SpeedUp extends Item {
     public void disableEffect() {
         if (!effecting) return;
 
-        figure.setSpeedUp(figure.getSpeedUp() / 1.5d);
+        figure.setSpeedUp(figure.getSpeedUp() / 1.3d);
         effecting = false;
     }
 

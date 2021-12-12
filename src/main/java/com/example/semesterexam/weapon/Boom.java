@@ -1,9 +1,15 @@
 package com.example.semesterexam.weapon;
 
+import com.example.semesterexam.core.Bullet;
+import com.example.semesterexam.core.Character;
+import com.example.semesterexam.core.Figure;
 import com.example.semesterexam.core.Subject;
+import com.example.semesterexam.lanscape.Gate;
 import com.example.semesterexam.manage.GameScreen;
+import com.example.semesterexam.tool.Player;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -16,7 +22,7 @@ public class Boom extends Subject {
     protected Timeline boomPow;
     protected Timeline boomDisable;
     protected double range = 1.5d;
-    protected int damage = 100;
+    protected double damage = 100;
     private boolean hasPow = false;
     protected Rectangle2D rowPow;
     protected Rectangle2D colPow;
@@ -25,6 +31,7 @@ public class Boom extends Subject {
     public double rangeDown = 1.5d;
     public double rangeLeft = 1.5d;
     public double rangeRight = 1.5d;
+    protected Subject owner = null;
 
     public void setRange(double range) {
         this.range = range;
@@ -37,7 +44,7 @@ public class Boom extends Subject {
         rangeLeft = range;
     }
 
-    public void setDamage(int damage) {
+    public void setDamage(double damage) {
         this.damage = damage;
     }
 
@@ -60,26 +67,38 @@ public class Boom extends Subject {
         boomDisable.play();
     }
 
-    public Boom(double x, double y, GameScreen gameScreen) throws IOException {
+    public Boom(Subject owner, GameScreen gameScreen) throws IOException {
         super(gameScreen);
+        this.owner = owner;
 
         addActions("QuaBoom", gameScreen.getAction("BoomPack:QuaBoom"));
         addActions("BoomPow", gameScreen.getAction("BoomPack:BoomPow"));
 
         HP.set(1);
-        setX(x);
-        setY(y);
-        setDefaultSize(1d);
+        setX(owner.getX());
+        setY(owner.getY());
+        setFitWidth(owner.getFitWidth());
+        setFitHeight(owner.getFitHeight());
 
     }
 
     public void power() throws IOException {
-//        setActions("BoomPow");
         setVisible(false);
         gameScreen.getMap().getChildren().remove(this);
         List<Subject> subjects = gameScreen.getManagement().subjects(this,rangeTop, rangeDown, rangeLeft, rangeRight);
         setFire();
-        for (Subject s : subjects) s.getDamage(damage);
+        for (Subject s : subjects) {
+            if (s == null) continue;
+            if (owner instanceof Arrow) {
+                Character x = ((Arrow) owner).getOwner();
+                if (x instanceof Figure) {
+                    s.setJustDamage(x);
+                }
+            } else if (owner instanceof Figure){
+                s.setJustDamage(owner);
+            }
+            s.getDamage(damage);
+        }
         disappear(500);
     }
 
@@ -120,6 +139,15 @@ public class Boom extends Subject {
 
         Timeline t = new Timeline(new KeyFrame(Duration.millis(200), ev -> {
             try {
+                if (!(owner instanceof Arrow) && !(owner instanceof FireBullet)) {
+                    if (owner instanceof Character) {
+                        ((Character) owner).playSound("BoomPow");
+                        ((Character) owner).playSound("Fire");
+                    }
+
+                } else {
+                    ((Bullet) owner).getOwner().playSound("Fire");
+                }
                 power();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -138,7 +166,7 @@ public class Boom extends Subject {
     }
 
     @Override
-    public void getDamage(int damage) {
+    public void getDamage(double damage) {
         if (!hasPow) {
             super.getDamage(damage);
         }

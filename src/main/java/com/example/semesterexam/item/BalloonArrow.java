@@ -8,7 +8,7 @@ import com.example.semesterexam.manage.GameScreen;
 import java.io.IOException;
 
 public class BalloonArrow extends Item {
-    private ItemsName name = ItemsName.BaloonArrow;
+    private ItemsName name = ItemsName.BalloonArrow;
     public BalloonArrow(double x, double y, GameScreen gameScreen) throws IOException {
         super(x, y, gameScreen);
     }

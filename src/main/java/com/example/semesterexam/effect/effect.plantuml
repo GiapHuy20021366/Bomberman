@@ -1,0 +1,274 @@
+@startuml
+
+title __EFFECT's Class Diagram__\n
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.BuffDamage {
+            + BuffDamage()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.EffFasterPutBoom {
+            + EffFasterPutBoom()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.EffImmortal {
+            + EffImmortal()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.EffPlusHP {
+            + EffPlusHP()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.Freeze {
+            + Freeze()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.FreezeTime {
+            + FreezeTime()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconArchery {
+            + IconArchery()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconBeSeen {
+            + IconBeSeen()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconBlueSword {
+            + IconBlueSword()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconBomber {
+            + IconBomber()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconBuff {
+            + IconBuff()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconOrc {
+            + IconOrc()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconRedSlash {
+            + IconRedSlash()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconSatan {
+            + IconSatan()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconSkeleton {
+            + IconSkeleton()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconSkullcap {
+            + IconSkullcap()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconWing {
+            + IconWing()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconWolf {
+            + IconWolf()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.IconZombie {
+            + IconZombie()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace effect {
+        class com.example.semesterexam.effect.Speed {
+            + Speed()
+            + setDefaultAction()
+        }
+      }
+    }
+  }
+  
+
+  com.example.semesterexam.effect.BuffDamage -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.EffFasterPutBoom -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.EffImmortal -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.EffPlusHP -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.Freeze -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.FreezeTime -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconArchery -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconBeSeen -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconBlueSword -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconBomber -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconBuff -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconOrc -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconRedSlash -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconSatan -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconSkeleton -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconSkullcap -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconWing -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconWolf -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.IconZombie -up-|> com.example.semesterexam.core.Effect
+  com.example.semesterexam.effect.Speed -up-|> com.example.semesterexam.core.Effect
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

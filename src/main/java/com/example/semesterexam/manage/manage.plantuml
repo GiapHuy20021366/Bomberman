@@ -1,0 +1,388 @@
+@startuml
+
+title __MANAGE's Class Diagram__\n
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.ActionsManagement {
+            ~ actions : HashMap<String, Action>
+            + ActionsManagement()
+            + ActionsManagement()
+            + addAction()
+            + getAction()
+            + loadAllActionsFolder()
+            + loadAllActionsFrom()
+            + printAllActions()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.AdjustVolumeManagement {
+            - CUR_VALUE : double
+            - END_GAME_ENTER : Image
+            - END_GAME_NORMAL : Image
+            - MAX_VOLUME : double
+            - SOUNDS_SYSTEM : Image
+            - backgroundVolume : Slider
+            - close : ImageView
+            - endGame : ImageView
+            - figureAttackVolume : Slider
+            - figureWalkVolume : Slider
+            - figureWeaponVolume : Slider
+            - monsterAttackVolume : Slider
+            - monsterWalkVolume : Slider
+            - monsterWeaponVolume : Slider
+            - playerVolume : Slider
+            - soundsSystem : ImageView
+            - title : ImageView
+            + AdjustVolumeManagement()
+            + setup()
+            + show()
+            - createSlider()
+            - hideAllSlider()
+            - hideSlider()
+            - setDefaultLayoutX()
+            - setLayoutX()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.Control {
+            + Control()
+            + getKeyKeyReleasedEvent()
+            + getKeyPressedEvent()
+            + moveViewPort()
+            + setGo()
+            - attack()
+            - setAttack()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.GamePlay {
+            - GO_HOME_CLICK : Image
+            - GO_HOME_FIRE : Image
+            - GO_HOME_NORMAL : Image
+            - SETUP_VIEW : Image
+            - bar : ProgressBar
+            - currentMap : int
+            - endTime : long
+            - figureAttackVolume : DoubleProperty
+            - figureWalkVolume : DoubleProperty
+            - figureWeaponVolume : DoubleProperty
+            - finish : Image
+            - game : Scene
+            - height : DoubleProperty
+            - maps : File[]
+            - messageProgress : Text
+            - monsterAttackVolume : DoubleProperty
+            - monsterWalkVolume : DoubleProperty
+            - monsterWeaponVolume : DoubleProperty
+            - name1 : String
+            - name2 : String
+            - setupMode : BooleanProperty
+            - setupView : ImageView
+            - stage : Stage
+            - startTime : long
+            - timer : AnimationTimer
+            - volumeBackground : DoubleProperty
+            - volumePlayer : DoubleProperty
+            - width : DoubleProperty
+            + GamePlay()
+            + GamePlay()
+            + endGame()
+            + figureAttackVolumeProperty()
+            + figureWalkVolumeProperty()
+            + figureWeaponVolumeProperty()
+            + getFigureAttackVolume()
+            + getFigureWalkVolume()
+            + getFigureWeaponVolume()
+            + getGameScreen()
+            + getHeight()
+            + getMonsterAttackVolume()
+            + getMonsterWalkVolume()
+            + getMonsterWeaponVolume()
+            + getVolumeBackground()
+            + getVolumePlayer()
+            + getWidth()
+            + heightProperty()
+            + monsterAttackVolumeProperty()
+            + monsterWalkVolumeProperty()
+            + monsterWeaponVolumeProperty()
+            + play()
+            + setFolderMap()
+            + setHeight()
+            + setNames()
+            + setWidth()
+            + setupButton()
+            + volumeBackgroundProperty()
+            + volumePlayerProperty()
+            + widthProperty()
+            {static} ~ getTime()
+            - comeHome()
+            - finish()
+            - loading()
+            - nextStage()
+            - score()
+            - show()
+            - summary()
+            - totalDamage()
+            - totalKill()
+            - totalScore()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.GameScreen {
+            {static} + MAGICIAN : String
+            {static} + SUPERHUMAN : String
+            - componentSize : DoubleProperty
+            - loadingProcess : HashMap<String, Timeline>
+            - typeFir1 : int
+            - typeFir2 : int
+            + dieAll()
+            + getAction()
+            + getComponentSize()
+            + getFigure1()
+            + getFigure2()
+            + getGame()
+            + getGamePlay()
+            + getKeyPressedEvent()
+            + getKeyReleasedEvent()
+            + getManagement()
+            + getMap()
+            + getMediaManagement()
+            + getMiniMap()
+            + getSizeProperties()
+            + getViewPlayer()
+            + insertBoss()
+            + loadFigure()
+            + loadMap()
+            + loadNextGame()
+            + monsters()
+            + sacking()
+            + setGamePlay()
+            + setTask()
+            + setTypeFir()
+            + setVision()
+            - setLoadingProcess()
+            - stopProgress()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.Map {
+            - HEIGHT : double
+            - MAX_COLUMN : IntegerProperty
+            - MAX_ROW : IntegerProperty
+            - WIDTH : double
+            + Map()
+            + Map()
+            + createMap()
+            + defineHeightWidth()
+            + getHEIGHT()
+            + getMAX_COLUMN()
+            + getMAX_ROW()
+            + getWIDTH()
+            + maxColumnsProperty()
+            + maxRowsProperty()
+            + setBackgroundBy()
+            + setGameScreen()
+            - setupMonster()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.MediaManagement {
+            - sounds : HashMap<String, Media>
+            + MediaManagement()
+            + getSound()
+            - loadAllSounds()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.MiniMap {
+            - COLOR1 : Image
+            - COLOR10 : Image
+            - COLOR11 : Image
+            - COLOR12 : Image
+            - COLOR2 : Image
+            - COLOR3 : Image
+            - COLOR4 : Image
+            - COLOR5 : Image
+            - COLOR6 : Image
+            - COLOR7 : Image
+            - COLOR8 : Image
+            - COLOR9 : Image
+            - matrix : int[][]
+            - maxLengthWidth : DoubleProperty
+            - miniCartoons : HashSet<MiniCartoon>
+            - nodeSize : DoubleProperty
+            + MiniMap()
+            + addBooms()
+            + addFigures()
+            + addMonsters()
+            + addWalls()
+            + getGameScreen()
+            + getMatrix()
+            + getNodeSize()
+            + load()
+            + loadMatrix()
+            + remove()
+            + removeOutMatrix()
+            + setMaxLengthWidth()
+            - makeMiniCartoon()
+            - makeMiniCartoon()
+            - setNodeSize()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace manage {
+        class com.example.semesterexam.manage.ObjectManagement {
+            - access : BooleanProperty
+            - booms : List<Boom>
+            - figures : HashMap<String, Figure>
+            - grasses : HashMap<Point2D, Grass>
+            - items : HashSet<Item>
+            - monsters : HashMap<String, Monster>
+            - walls : HashMap<Point2D, Wall>
+            + addBoom()
+            + addCharacter()
+            + addGrass()
+            + addItem()
+            + addMonster()
+            + addWall()
+            + arrowIntersect()
+            + characterIntersect()
+            + checkIntersectWall()
+            + clear()
+            + count()
+            + countOfMonster()
+            + detectFigure()
+            + dieAll()
+            + getBooms()
+            + getFigureEarnItem()
+            + getFigureList()
+            + getFigures()
+            + getGate()
+            + getGrassAt()
+            + getMaxRange()
+            + getMonsterEffectByIce()
+            + getMonsters()
+            + getNearestWall()
+            + getOverlapping()
+            + getOverlapping()
+            + getWalls()
+            + intersects()
+            + isAccess()
+            + isOverlapping()
+            + isOverlapping()
+            + lookupFigure()
+            + nextDirection()
+            + nextDirectionOnSameCell()
+            + randomItem()
+            + randomMonster()
+            + reDraw()
+            + removeBoom()
+            + removeCharacter()
+            + removeFigureOutOfManage()
+            + removeItem()
+            + removeMonster()
+            + removeMonsterOutOfManage()
+            + removeWall()
+            + removeWallOutOfManage()
+            + resetDefaultSpeed()
+            + setAccess()
+            + setDisableAllMonster()
+            + setGameScreen()
+            + setGate()
+            + setMiniMap()
+            + subjects()
+            + subjects()
+            - next()
+            - parseInt()
+        }
+      }
+    }
+  }
+  
+
+  com.example.semesterexam.manage.AdjustVolumeManagement -up-|> javafx.scene.layout.AnchorPane
+  com.example.semesterexam.manage.AdjustVolumeManagement o-- com.example.semesterexam.manage.GamePlay : gamePlay
+  com.example.semesterexam.manage.Control o-- com.example.semesterexam.core.Figure : figure1
+  com.example.semesterexam.manage.Control o-- com.example.semesterexam.core.Figure : figure2
+  com.example.semesterexam.manage.Control o-- com.example.semesterexam.tool.ViewPlayer : viewPlayer
+  com.example.semesterexam.manage.GamePlay o-- com.example.semesterexam.tool.Player : end
+  com.example.semesterexam.manage.GamePlay o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.manage.GamePlay o-- com.example.semesterexam.tool.Player : theme
+  com.example.semesterexam.manage.GamePlay o-- com.example.semesterexam.manage.AdjustVolumeManagement : volumeView
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.manage.ActionsManagement : actions
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.core.Figure : character1
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.core.Figure : character2
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.manage.GamePlay : gamePlay
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.manage.ObjectManagement : management
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.manage.Map : map
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.manage.MediaManagement : mediaManagement
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.manage.MiniMap : miniMap
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.task.MyTask : task
+  com.example.semesterexam.manage.GameScreen o-- com.example.semesterexam.tool.ViewPlayer : viewPlayer
+  com.example.semesterexam.manage.Map -up-|> javafx.scene.layout.AnchorPane
+  com.example.semesterexam.manage.Map o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.manage.MiniMap -up-|> javafx.scene.layout.AnchorPane
+  com.example.semesterexam.manage.MiniMap o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.manage.MiniMap o-- com.example.semesterexam.manage.Map : map
+  com.example.semesterexam.manage.ObjectManagement o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.manage.ObjectManagement o-- com.example.semesterexam.lanscape.Gate : gate
+  com.example.semesterexam.manage.ObjectManagement o-- com.example.semesterexam.manage.MiniMap : miniMap
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

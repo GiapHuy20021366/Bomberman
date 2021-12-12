@@ -1,15 +1,98 @@
 package com.example.semesterexam.figure;
 
 import com.example.semesterexam.core.Figure;
+import com.example.semesterexam.effect.EffPlusHP;
+import com.example.semesterexam.effect.IconBomber;
+import com.example.semesterexam.effect.IconBuff;
+import com.example.semesterexam.item.PlusHP;
 import com.example.semesterexam.manage.GameScreen;
+import com.example.semesterexam.weapon.BuffHP;
 import com.example.semesterexam.weapon.Lighting;
 import com.example.semesterexam.weapon.MagicWand;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class Magician extends Figure implements Lighting {
+public class Magician extends Figure implements Lighting, BuffHP {
+    private boolean hasBuff = false;
+    private long cycleBuff = 6000L;
+    private Timeline countdownBuff;
     public Magician(GameScreen gameScreen) throws IOException {
         super(gameScreen);
+
+        maxHP.set(500);
+        HP.set(500);
+        baseDamage.set(100);
+        rateSpeed.set(0.75);
+    }
+
+    @Override
+    public void addIconSkills() {
+        try {
+            iconSkill.put("Normal", new IconBomber(gameScreen, this, -1));
+            iconSkill.put("BuffHP", new IconBuff(gameScreen, this, -1));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void attack() {
+        if (getOnAttack().equals("BuffHP") && hasBuff) {
+            return;
+        } else {
+            hasBuff = true;
+            if (countdownBuff != null) {
+                countdownBuff.stop();
+            }
+            countdownBuff = new Timeline(new KeyFrame(Duration.millis(cycleBuff), ev -> {
+                hasBuff = false;
+            }));
+            countdownBuff.play();
+        }
+        super.attack();
+    }
+
+    @Override
+    public EventHandler<KeyEvent> getKeyPressedEvent() {
+        return new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                    case W, UP -> goUp = true;
+                    case S, DOWN -> goDown = true;
+                    case A, LEFT -> goLeft = true;
+                    case D, RIGHT -> goRight = true;
+                    case B, SPACE -> attack();
+                    case L -> gameScreen.setVision(0.8d);
+                    case P -> gameScreen.setVision(1.2d);
+                    case O -> gameScreen.sacking();
+                    case M -> gameScreen.getViewPlayer().moveViewport();
+                    case NUMPAD1 -> onAttack.set("Normal");
+                    case NUMPAD2 -> onAttack.set("Lighting");
+                    case NUMPAD3 -> onAttack.set("BuffHP");
+                }
+            }
+        };
+    }
+
+    @Override
+    public void setAttack(int i) {
+        switch (i) {
+            case 1 -> {
+                onAttack.set("Normal");
+            }
+            case 2 -> {
+                onAttack.set("BuffHP");
+            }
+            case 3 -> {
+                onAttack.set("Lighting");
+            }
+        }
     }
 
     @Override
@@ -29,7 +112,6 @@ public class Magician extends Figure implements Lighting {
         addActions("NormalStandRight", gameScreen.getAction("MagicianPack:NormalStandRight"));
 
         setActions("NormalStandRight");
-        HP.set(9999999);
     }
 
     @Override
@@ -50,6 +132,14 @@ public class Magician extends Figure implements Lighting {
     }
 
     @Override
+    public void addActionAttackBuffHP() {
+        addActions("BuffHPAttackRight", gameScreen.getAction("MagicianPack:BuffHPAttackRight"));
+        addActions("BuffHPAttackLeft", gameScreen.getAction("MagicianPack:BuffHPAttackLeft"));
+        addActions("BuffHPAttackUp", gameScreen.getAction("MagicianPack:BuffHPAttackUp"));
+        addActions("BuffHPAttackDown", gameScreen.getAction("MagicianPack:BuffHPAttackDown"));
+    }
+
+    @Override
     public void addMagicWand() {
         super.addWeapon(new MagicWand(this, gameScreen));
     }
@@ -57,6 +147,7 @@ public class Magician extends Figure implements Lighting {
     @Override
     public void addAttackMagicWand() {
         attacks.put("Lighting", "MagicWand");
+        attacks.put("BuffHP", "MagicWand");
     }
 
     @Override
@@ -85,9 +176,11 @@ public class Magician extends Figure implements Lighting {
         addActionDieNormal();
 
         addActionAttackLighting();
+        addActionAttackBuffHP();
         addActionMoveMagicWand();
         addActionDieMagicWand();
 
+        addIconSkills();
 
         addAllAttack();
     }
@@ -96,4 +189,6 @@ public class Magician extends Figure implements Lighting {
     public void addAllAttack() {
         addAttackMagicWand();
     }
+
+
 }

@@ -9,6 +9,9 @@ public class SoftWall extends Wall {
     public SoftWall(double X, double Y, GameScreen gameScreen) throws IOException {
         super(X, Y, gameScreen);
         HP.set(50);
+
+        addActions("Default", gameScreen.getAction("WallMemPack:Default"));
+        setActions("Default");
     }
 
 }

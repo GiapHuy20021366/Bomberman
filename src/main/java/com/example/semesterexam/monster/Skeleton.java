@@ -1,6 +1,8 @@
 package com.example.semesterexam.monster;
 
 import com.example.semesterexam.core.Monster;
+import com.example.semesterexam.effect.IconOrc;
+import com.example.semesterexam.effect.IconSkeleton;
 import com.example.semesterexam.manage.GameScreen;
 
 import java.io.IOException;
@@ -8,8 +10,21 @@ import java.io.IOException;
 public class Skeleton extends Monster {
     public Skeleton(GameScreen gameScreen) throws IOException {
         super(gameScreen);
+
+        maxHP.set(100);
+        HP.set(100);
+        baseDamage.set(50);
+        rateSpeed.set(1.2d);
     }
 
+    @Override
+    public void addIconSkills() {
+        try {
+            iconSkill.put("Normal", new IconSkeleton(gameScreen, this, -1));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void addActionMoveNormal() {
@@ -46,6 +61,8 @@ public class Skeleton extends Monster {
         addActionMoveNormal();
         addActionDieNormal();
         addActionAttack();
+
+        addIconSkills();
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.semesterexam.core;
 
 import com.example.semesterexam.manage.GameScreen;
+import com.example.semesterexam.tool.Player;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,6 +15,7 @@ public abstract class Item extends Subject {
     protected AnimationTimer timer;
     protected Figure figure = null;
     protected boolean effecting = false;
+    protected Effect effect;
 
     public Item(double x, double y, GameScreen gameScreen) throws IOException {
         super(gameScreen);
@@ -21,6 +23,13 @@ public abstract class Item extends Subject {
         setY(y);
         setFitWidth(gameScreen.getComponentSize());
         setFitHeight(gameScreen.getComponentSize());
+    }
+
+    public void removeEffect() {
+        disableEffect();
+        if (effect != null) {
+            effect.setHP(-1); // Die -> Disappear
+        }
     }
 
     private Item getThis() {
@@ -34,7 +43,7 @@ public abstract class Item extends Subject {
     public void disappear() {
         disappear = new Timeline(new KeyFrame(Duration.millis(timeOut), ev -> {
             timer.stop();
-            gameScreen.getMap().getChildren().remove(this);
+            gameScreen.getMap().getChildren().remove(getThis());
         }));
         disappear.play();
     }
@@ -63,8 +72,12 @@ public abstract class Item extends Subject {
     public void die() {
         if (timer != null) timer.stop();
         if (disappear != null) disappear.stop();
+//        new Player(gameScreen, gameScreen.getMediaManagement().getSound("EatItem"), Player.VOLUME_PLAYER).play();
+        if (figure != null) {
+            figure.playSound("EatItem");
+        }
 
-        gameScreen.getMap().getChildren().remove(this);
+        gameScreen.getMap().getChildren().remove(getThis());
 
         effect();
     }

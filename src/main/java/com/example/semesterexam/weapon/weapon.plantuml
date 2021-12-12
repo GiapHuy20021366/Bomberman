@@ -1,0 +1,330 @@
+@startuml
+
+title __WEAPON's Class Diagram__\n
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        interface com.example.semesterexam.weapon.Archery {
+            {abstract} + addActionAttackArchery()
+            {abstract} + addActionDieBow()
+            {abstract} + addActionMoveBow()
+            {abstract} + addAttackBow()
+            {abstract} + addBow()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.Arrow {
+            + Arrow()
+            + adjustRange()
+            + effect()
+            + getName()
+            + setDefaultActions()
+            + setRealitySize()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        interface com.example.semesterexam.weapon.BlueSlash {
+            {abstract} + addActionAttackBlueSlash()
+            {abstract} + addActionDieBlueSword()
+            {abstract} + addActionMoveBlueSword()
+            {abstract} + addAttackBlueSword()
+            {abstract} + addBlueSword()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.BlueSword {
+            - iceBulletCount : int
+            + BlueSword()
+            + getName()
+            + hasBullet()
+            + playOnFlySounds()
+            + plusBullet()
+            + setNewBullet()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.Boom {
+            + rangeDown : double
+            + rangeLeft : double
+            + rangeRight : double
+            + rangeTop : double
+            # boomDisable : Timeline
+            # boomPow : Timeline
+            # colPow : Rectangle2D
+            # damage : double
+            # fires : List<Fire>
+            # range : double
+            # rowPow : Rectangle2D
+            - hasPow : boolean
+            + Boom()
+            + countdown()
+            + die()
+            + disappear()
+            + getDamage()
+            + power()
+            + setAllRange()
+            + setColPow()
+            + setDamage()
+            + setFire()
+            + setRange()
+            + setRowPow()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.Bow {
+            - arrowCount : int
+            + Bow()
+            + getName()
+            + hasBullet()
+            + playOnFlySounds()
+            + plusBullet()
+            + setNewBullet()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        interface com.example.semesterexam.weapon.BuffHP {
+            {abstract} + addActionAttackBuffHP()
+            {abstract} + addActionDieMagicWand()
+            {abstract} + addActionMoveMagicWand()
+            {abstract} + addAttackMagicWand()
+            {abstract} + addMagicWand()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.Fire {
+            + Fire()
+            + setDefaultFire()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.FireBullet {
+            # maxRange : double
+            - fire : AnimationTimer
+            + FireBullet()
+            + adjustRange()
+            + effect()
+            + getName()
+            + setDefaultActions()
+            + setRealitySize()
+            - firing()
+            - getThis()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.IceBullet {
+            + IceBullet()
+            + effect()
+            + getName()
+            + setDefaultActions()
+            + setRealitySize()
+            - freeze()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        interface com.example.semesterexam.weapon.Lighting {
+            {abstract} + addActionAttackLighting()
+            {abstract} + addActionDieMagicWand()
+            {abstract} + addActionMoveMagicWand()
+            {abstract} + addAttackMagicWand()
+            {abstract} + addMagicWand()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.Mace {
+            + Mace()
+            + getName()
+            + hasBullet()
+            + playOnFlySounds()
+            + plusBullet()
+            + setNewBullet()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.MaceBullet {
+            + MaceBullet()
+            + effect()
+            + getName()
+            + setDefaultActions()
+            + setRealitySize()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.MagicWand {
+            + MagicWand()
+            + getName()
+            + hasBullet()
+            + playOnFlySounds()
+            + plusBullet()
+            + setNewBullet()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        interface com.example.semesterexam.weapon.RedSlash {
+            {abstract} + addActionAttackRedSlash()
+            {abstract} + addActionDieRedSword()
+            {abstract} + addActionMoveRedSword()
+            {abstract} + addAttackRedSword()
+            {abstract} + addRedSword()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.RedSword {
+            - fireBulletCount : int
+            + RedSword()
+            + getName()
+            + hasBullet()
+            + playOnFlySounds()
+            + plusBullet()
+            + setNewBullet()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.ReduceHP {
+            + ReduceHP()
+            + effect()
+            + getName()
+            + setDefaultActions()
+            + setRealitySize()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace weapon {
+        class com.example.semesterexam.weapon.SimpleFireGoal {
+            - damage : int
+            + SimpleFireGoal()
+            + effect()
+            + getName()
+            + setDefaultActions()
+            + setRealitySize()
+        }
+      }
+    }
+  }
+  
+
+  com.example.semesterexam.weapon.Arrow -up-|> com.example.semesterexam.core.Bullet
+  com.example.semesterexam.weapon.BlueSword -up-|> com.example.semesterexam.core.Weapon
+  com.example.semesterexam.weapon.Boom -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.weapon.Boom o-- com.example.semesterexam.core.Subject : owner
+  com.example.semesterexam.weapon.Bow -up-|> com.example.semesterexam.core.Weapon
+  com.example.semesterexam.weapon.Fire -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.weapon.FireBullet -up-|> com.example.semesterexam.core.Bullet
+  com.example.semesterexam.weapon.IceBullet -up-|> com.example.semesterexam.core.Bullet
+  com.example.semesterexam.weapon.Mace -up-|> com.example.semesterexam.core.Weapon
+  com.example.semesterexam.weapon.MaceBullet -up-|> com.example.semesterexam.core.Bullet
+  com.example.semesterexam.weapon.MagicWand -up-|> com.example.semesterexam.core.Weapon
+  com.example.semesterexam.weapon.RedSword -up-|> com.example.semesterexam.core.Weapon
+  com.example.semesterexam.weapon.ReduceHP -up-|> com.example.semesterexam.core.Bullet
+  com.example.semesterexam.weapon.SimpleFireGoal -up-|> com.example.semesterexam.core.Bullet
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

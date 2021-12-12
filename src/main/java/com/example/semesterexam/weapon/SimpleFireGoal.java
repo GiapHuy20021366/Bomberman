@@ -18,10 +18,11 @@ public class SimpleFireGoal extends Bullet {
 
     }
 
+
     @Override
     public void effect() {
         if (subject instanceof Figure) {
-            subject.getDamage(damage);
+            subject.getDamage(owner.getBaseDamage() * owner.getIncreaseDamage());
         }
     }
 

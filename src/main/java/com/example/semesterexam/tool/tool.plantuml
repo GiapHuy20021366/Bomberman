@@ -1,0 +1,254 @@
+@startuml
+
+title __TOOL's Class Diagram__\n
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.Action {
+            - image : Image
+            + Action()
+            + Action()
+            + getImage()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.AstraPath {
+            {static} + DIAGONAL_COST : int
+            {static} + V_H_COST : int
+            - closedCells : boolean[][]
+            - endI : int
+            - endJ : int
+            - grid : Cell[][]
+            - openCells : PriorityQueue<Cell>
+            - startI : int
+            - startJ : int
+            + AstraPath()
+            + addBlockOnCell()
+            + displaySolution()
+            + endCell()
+            + next()
+            + process()
+            + startCell()
+            + updateCostIfNeeded()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.Cell {
+            + finalCost : int
+            + heuristicCost : int
+            + i : int
+            + j : int
+            + solution : boolean
+            + Cell()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.FigureInformation {
+            {static} + FRAME : String
+            {static} + FRAME_NAME : String
+            {static} + MAGICIAN_DIE_IMAGE : String
+            {static} + MAGICIAN_IMAGE : String
+            {static} + PLAYER1 : String
+            {static} + PLAYER2 : String
+            {static} + SUPERHUMAN_DIE_IMAGE : String
+            {static} + SUPERHUMAN_IMAGE : String
+            + FigureInformation()
+            + show()
+            - setup()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.ImageViewProperties {
+            + columns : int
+            + count : int
+            + height : double
+            + offsetX : double
+            + offsetY : double
+            + width : double
+            + ImageViewProperties()
+            + ImageViewProperties()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.MiniCartoon {
+            - HP : DoubleProperty
+            + MiniCartoon()
+            + getIfWall()
+            + setImage()
+            - getThis()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.MultiAction {
+            - images : Image[]
+            + MultiAction()
+            + getImages()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.MultiSpriteAnimation {
+            - count : int
+            - imageView : ImageView
+            - images : Image[]
+            + MultiSpriteAnimation()
+            # interpolate()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.Player {
+            {static} + VOLUME_BACKGROUND : int
+            {static} + VOLUME_FIGURE_ATTACK : int
+            {static} + VOLUME_FIGURE_WALK : int
+            {static} + VOLUME_FIGURE_WEAPON : int
+            {static} + VOLUME_MONSTER_ATTACK : int
+            {static} + VOLUME_MONSTER_WALK : int
+            {static} + VOLUME_MONSTER_WEAPON : int
+            {static} + VOLUME_PLAYER : int
+            - mediaPlayer : MediaPlayer
+            - name : String
+            + Player()
+            + autoRepeat()
+            + getMediaPlayer()
+            + getName()
+            + pause()
+            + play()
+            + reset()
+            + setName()
+            + stop()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.SpriteAnimation {
+            - imageView : ImageView
+            - lastIndex : int
+            + SpriteAnimation()
+            + SpriteAnimation()
+            + SpriteAnimation()
+            + getAction()
+            + getProperties()
+            + setAction()
+            + setProperties()
+            # interpolate()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.TransitionService {
+            {static} + fade()
+            {static} + fadeAndMove()
+            {static} + fadeAndMove()
+            {static} + move()
+            {static} + moveDir()
+            {static} + scale()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace tool {
+        class com.example.semesterexam.tool.ViewPlayer {
+            - disableViewport : boolean
+            - scrollPane : ScrollPane
+            + ViewPlayer()
+            + getScrollPane()
+            + moveViewport()
+            + moveViewportBy()
+            + setMap()
+            + setViewSize()
+            + shacking()
+        }
+      }
+    }
+  }
+  
+
+  com.example.semesterexam.tool.Action o-- com.example.semesterexam.tool.ImageViewProperties : imageViewProperties
+  com.example.semesterexam.tool.Cell o-- com.example.semesterexam.tool.Cell : parent
+  com.example.semesterexam.tool.FigureInformation -up-|> javafx.scene.layout.AnchorPane
+  com.example.semesterexam.tool.FigureInformation o-- com.example.semesterexam.core.Figure : figure1
+  com.example.semesterexam.tool.FigureInformation o-- com.example.semesterexam.core.Figure : figure2
+  com.example.semesterexam.tool.MiniCartoon -up-|> javafx.scene.image.ImageView
+  com.example.semesterexam.tool.MiniCartoon o-- com.example.semesterexam.manage.MiniMap : miniMap
+  com.example.semesterexam.tool.MiniCartoon o-- com.example.semesterexam.core.Subject : s
+  com.example.semesterexam.tool.MultiAction -up-|> com.example.semesterexam.tool.Action
+  com.example.semesterexam.tool.MultiSpriteAnimation -up-|> com.example.semesterexam.tool.SpriteAnimation
+  com.example.semesterexam.tool.SpriteAnimation -up-|> javafx.animation.Transition
+  com.example.semesterexam.tool.SpriteAnimation o-- com.example.semesterexam.tool.Action : action
+  com.example.semesterexam.tool.SpriteAnimation o-- com.example.semesterexam.tool.ImageViewProperties : properties
+  com.example.semesterexam.tool.ViewPlayer -up-|> javafx.scene.layout.Pane
+  com.example.semesterexam.tool.ViewPlayer o-- com.example.semesterexam.manage.Map : map
+  com.example.semesterexam.tool.ViewPlayer o-- com.example.semesterexam.core.Figure : player
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

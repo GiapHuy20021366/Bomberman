@@ -3,10 +3,11 @@ package com.example.semesterexam.manage;
 import com.example.semesterexam.core.Direction;
 import com.example.semesterexam.core.Monster;
 import com.example.semesterexam.core.Wall;
-import com.example.semesterexam.lanscape.ConcreteWall;
-import com.example.semesterexam.lanscape.Grass;
-import com.example.semesterexam.lanscape.SoftWall;
-import com.example.semesterexam.monster.Orc;
+import com.example.semesterexam.creategame.MapDisplay;
+import com.example.semesterexam.lanscape.*;
+import com.example.semesterexam.monster.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -18,9 +19,8 @@ import java.util.Scanner;
 public class Map extends AnchorPane {
     private double HEIGHT = 0;
     private double WIDTH = 0;
-    private int MAX_COLUMN = 0;
-    private int MAX_ROW = 0;
-//    public static double defaultSize = 1d;
+    private IntegerProperty MAX_COLUMN = new SimpleIntegerProperty(0);
+    private IntegerProperty MAX_ROW = new SimpleIntegerProperty(0);
 
     private GameScreen gameScreen;
 
@@ -40,6 +40,7 @@ public class Map extends AnchorPane {
     public void createMap(String filePath) throws IOException {
 
         if (gameScreen == null) return;
+        this.getChildren().clear();
 
         File file = new File(filePath);
         Scanner scanner = new Scanner(file);
@@ -47,79 +48,110 @@ public class Map extends AnchorPane {
         int i = -1;
         int maxColumns = 0;
         while (scanner.hasNextLine()) {
-            i++;
             String line = scanner.nextLine().trim();
+            if (line.equals("")) continue;
+            i++;
             for (int k = 0; k < line.length(); k++) {
                 if (k > maxColumns) maxColumns = k;
                 char c = line.charAt(k);
-                if (c == '1') {
-                    Wall wall = new ConcreteWall(k * gameScreen.getComponentSize(), gameScreen.getComponentSize() * i, gameScreen);
-
-                    wall.setPoint2D(new Point2D((double) k, (double) i));
-
-                    wall.setFitWidth(gameScreen.getComponentSize());
-                    wall.setFitHeight(gameScreen.getComponentSize());
-
-                    wall.addActions("Default", gameScreen.getAction("WallCungPack:Default"));
-                    wall.setActions("Default");
-//                    wall.setDefaultSize(Map.defaultSize);
-
-                    getChildren().add(wall);
-
-                    gameScreen.getManagement().addWall(wall);
-                } else if (c == '2') {
-                    Wall wall = new SoftWall(k * gameScreen.getComponentSize(), gameScreen.getComponentSize() * i, gameScreen);
-
-                    wall.setPoint2D(new Point2D((double) k, (double) i));
-
-                    wall.setFitWidth(gameScreen.getComponentSize());
-                    wall.setFitHeight(gameScreen.getComponentSize());
-                    wall.addActions("Default", gameScreen.getAction("WallMemPack:Default"));
-                    wall.setActions("Default");
-
-                    getChildren().add(wall);
-
-                    gameScreen.getManagement().addWall(wall);
-                } else if (c == 'b') {
-                    Monster monster1 = new Orc(gameScreen);
-//                    monster1.setName(i + "" + k);
-                    monster1.setDefaultSize(1d);
-                    monster1.setDefaultLocation(k, i);
-                    monster1.addAllActions();
-                    monster1.setDefaultDirection(Direction.RIGHT);
-                    monster1.startCauseDamage();
-                    monster1.startMoving();
-                    gameScreen.getManagement().addMonster(monster1);
-                    this.getChildren().add(monster1);
+                if (c != '1') {
+                    Grass grass;
+                    switch (MapDisplay.typeGrass) {
+                        case 1 -> {
+                            grass = new Grass(k * gameScreen.getComponentSize(), gameScreen.getComponentSize() * i, gameScreen);
+                        }
+                        case 2 -> {
+                            grass = new Stone(k * gameScreen.getComponentSize(), gameScreen.getComponentSize() * i, gameScreen);
+                        }
+                        case 3 -> {
+                            grass = new Lava(k * gameScreen.getComponentSize(), gameScreen.getComponentSize() * i, gameScreen);
+                        }
+                        default -> grass = new Grass(k * gameScreen.getComponentSize(), gameScreen.getComponentSize() * i, gameScreen);
+                    }
+                    grass.setPoint2D(new Point2D(k, i));
+                    getChildren().add(grass);
+                    gameScreen.getManagement().addGrass(grass);
+                    grass.toBack();
                 }
-
-                Grass grass = new Grass(k * gameScreen.getComponentSize(), gameScreen.getComponentSize() * i, gameScreen);
-
-                grass.setPoint2D(new Point2D((double) k, (double) i));
-
-                grass.setFitWidth(gameScreen.getComponentSize());
-                grass.setFitHeight(gameScreen.getComponentSize());
-                grass.addActions("Default", gameScreen.getAction("GrassPack:Default"));
-                grass.setActions("Default");
-
-                getChildren().add(grass);
-
-                gameScreen.getManagement().addGrass(grass);
-                grass.toBack();
+                switch (c) {
+                    case '1' -> {
+                        Wall wall = new ConcreteWall(k * gameScreen.getComponentSize(), gameScreen.getComponentSize() * i, gameScreen);
+                        wall.setPoint2D(new Point2D(k, i));
+                        getChildren().add(wall);
+                        gameScreen.getManagement().addWall(wall);
+                    }
+                    case '2' -> {
+                        Wall wall = new SoftWall(k * gameScreen.getComponentSize(), gameScreen.getComponentSize() * i, gameScreen);
+                        wall.setPoint2D(new Point2D(k, i));
+                        getChildren().add(wall);
+                        gameScreen.getManagement().addWall(wall);
+                    }
+                    case 'B' -> {
+                        Monster m = new BossHuMan(gameScreen);
+                        setupMonster(m, k, i, 1d);
+                    }
+                    case 'O' -> {
+                        Monster m = new Orc(gameScreen);
+                        setupMonster(m, k, i, 1d);
+                    }
+                    case 'S' -> {
+                        Monster m = new Satan(gameScreen);
+                        setupMonster(m, k, i, 1d);
+                    }
+                    case 'K' -> {
+                        Monster m = new Skeleton(gameScreen);
+                        setupMonster(m, k, i, 1d);
+                    }
+                    case 'D' -> {
+                        Monster m = new Winged(gameScreen);
+                        setupMonster(m, k, i, 1d);
+                    }
+                    case 'F' -> {
+                        Monster m = new Wolf(gameScreen);
+                        setupMonster(m, k, i, 1d);
+                    }
+                    case 'Z' -> {
+                        Monster m = new Zombie(gameScreen);
+                        setupMonster(m, k, i, 1d);
+                    }
+                    case 'G' -> {
+                        Gate gate = new Gate(k * gameScreen.getComponentSize(), gameScreen.getComponentSize() * i, gameScreen);
+                        gate.setPoint2D(new Point2D(k, i));
+                        getChildren().add(gate);
+                        gameScreen.getManagement().addWall(gate);
+                        gameScreen.getManagement().setGate(gate);
+                        gate.toFront();
+                    }
+                }
             }
         }
 
-        MAX_COLUMN = maxColumns + 1;
-        MAX_ROW = i + 1;
+        MAX_COLUMN.set(maxColumns + 1);
+        MAX_ROW.set(i + 1);
+
+//        System.out.println(MAX_COLUMN + " " + MAX_ROW);
 
         defineHeightWidth();
+    }
+
+    private void setupMonster(Monster monster1, int x, int y, double size) {
+        monster1.setDefaultSize(1d);
+        monster1.setDefaultLocation(x, y);
+        monster1.addAllActions();
+        monster1.addAllWeapon();
+        monster1.setDefaultDirection(monster1.randomDirection());
+        monster1.setCanChangeDirection(true);
+        monster1.startMoving();
+        monster1.showBloodBar();
+        gameScreen.getManagement().addMonster(monster1);
+        this.getChildren().add(monster1);
     }
 
 
     public void setBackgroundBy(String filePath) {
         if (filePath == null) filePath = ".\\Backgorund\\backgroundMoon.jpg";
 
-        Image background = new Image(new File(filePath).toURI().toString());
+        Image background = new Image(new File(filePath).toURI().toString(), 2400, 2400, false, true);
 
         BackgroundImage backgroundImage = new BackgroundImage(background, BackgroundRepeat.REPEAT,
                 BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
@@ -141,23 +173,28 @@ public class Map extends AnchorPane {
     }
 
     public void defineHeightWidth() {
-        WIDTH = MAX_COLUMN * gameScreen.getComponentSize();
-        HEIGHT = MAX_ROW * gameScreen.getComponentSize();
+        WIDTH = MAX_COLUMN.get() * gameScreen.getComponentSize();
+        HEIGHT = MAX_ROW.get() * gameScreen.getComponentSize();
     }
 
     public int getMAX_COLUMN() {
-        return MAX_COLUMN;
+        return MAX_COLUMN.get();
     }
 
     public int getMAX_ROW() {
+        return MAX_ROW.get();
+    }
+
+    public IntegerProperty maxColumnsProperty() {
+        return MAX_COLUMN;
+    }
+
+    public GameScreen getGameScreen() {
+        return gameScreen;
+    }
+
+    public IntegerProperty maxRowsProperty() {
         return MAX_ROW;
     }
 
-    public void setWIDTH(double width) {
-        WIDTH = width;
-    }
-
-    public void setHEIGHT(double height) {
-        HEIGHT = height;
-    }
 }

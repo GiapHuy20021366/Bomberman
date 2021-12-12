@@ -5,6 +5,7 @@ import com.example.semesterexam.tool.MultiAction;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -48,6 +49,20 @@ public class ActionsManagement {
                 String path = scanner.next();
                 addAction(pack + s, path.trim());
             }
+        }
+    }
+
+    public void loadAllActionsFolder(String folder) throws IOException {
+        File file = new File(folder);
+        File[] files = file.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".txt");
+            }
+        });
+        assert files != null;
+        for (File f : files) {
+            loadAllActionsFrom(f.toString());
         }
     }
 

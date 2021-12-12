@@ -1,14 +1,16 @@
 package com.example.semesterexam.core;
 
+import com.example.semesterexam.accessory.BloodBar;
+import com.example.semesterexam.effect.IconBeSeen;
 import com.example.semesterexam.manage.GameScreen;
 import com.example.semesterexam.tool.Action;
+import com.example.semesterexam.tool.Player;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -27,11 +29,84 @@ public abstract class Character extends Subject {
     protected Weapon onWeapon;
     protected StringProperty onAttack = new SimpleStringProperty("Normal");
 
+    protected LongProperty cyclePutBoom = new SimpleLongProperty(1500);
+    protected Timeline countdownPutBoom;
+    protected boolean hasPutBoom = false;
+    protected BloodBar bloodBar;
+    protected Timeline attack;
+    protected Timeline performComplete;
+    protected DoubleProperty baseDamage = new SimpleDoubleProperty(500d);
+    protected BooleanProperty showBloodBar = new SimpleBooleanProperty(false);
+
+    protected HashMap<String, Effect> iconSkill = new HashMap<>();
+    protected HashMap<String, Player> sounds = new HashMap<>();
+
 
     public Character(GameScreen gameScreen) throws IOException {
         super(gameScreen);
-        HP.set(10000000);
+        showBloodBar.addListener((observableValue, aBoolean, t1) -> {
+            if (bloodBar != null) {
+                bloodBar.setVisible(t1);
+                showIconSkill();
+            }
+        });
+
+        addSounds();
     }
+
+    public double getBaseDamage() {
+        return baseDamage.get();
+    }
+
+    public abstract void addIconSkills();
+
+    public abstract void addSounds();
+
+    public void playSound(String name) {
+        Player player =  sounds.get(name);
+        if (player == null) {
+//            System.out.println("No sounds name " + name + " found!");
+            return;
+        }
+        player.stop();
+        player.play();
+//        player.reset();
+    }
+
+    public Player getSound(String name) {
+        return sounds.get(name);
+    }
+
+    public void showIconSkill() {
+        Effect icon = iconSkill.get(getOnAttack());
+        if (icon == null) {
+            return;
+        }
+
+        icon.setVisible(showBloodBar.get());
+        icon.toFront();
+    }
+
+    public void showBloodBar() {
+        try {
+            bloodBar = new BloodBar(gameScreen, this);
+            bloodBar.setAll();
+            showBloodBar.set(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void setCyclePutBoom(long cycle) {
+        cyclePutBoom.set(cycle);
+    }
+
+    public long getCyclePutBoom() {
+        return cyclePutBoom.get();
+    }
+
+    public abstract void countdownPutBoom();
 
     public void setDefaultLocation(int x, int y) {
         setX(gameScreen.getComponentSize() * x);
@@ -79,13 +154,16 @@ public abstract class Character extends Subject {
     public void setAttacks(String attackName) {
         String weaponName = attacks.get(attackName);
 
+//        System.out.println("attackName " + attackName);
+
         if (weaponName == null && !attackName.equals("Normal")) {
             onAttack.set("Normal");
-            System.out.println("Warning!!! attack Name: " + attackName + " is not be supported for this character, character name: " + this.getName());
-            return;
+            System.out.println("Warning!!! attack Name: " + attackName + " is not be supported for this character, character name: " + this.getClass());
         }
 
         onWeapon = weapons.get(weaponName);
+//        System.out.println("Set attack");
+        showIconSkill();
 
     }
 
@@ -103,6 +181,7 @@ public abstract class Character extends Subject {
 
     public void setActionGoDirection(Direction direction) {
         String onWeapon = getOnWeapon();
+//        System.out.println("onWeapon " + onWeapon);
         switch (direction) {
             case UP -> {
                 setActions(onWeapon + "GoUp");
@@ -120,6 +199,9 @@ public abstract class Character extends Subject {
     }
 
     public void stand() {
+        if (HP.get() <= 0) {
+            return;
+        }
         String onWeapon = getOnWeapon();
         switch (onDirection) {
             case UP -> {
@@ -137,16 +219,25 @@ public abstract class Character extends Subject {
         }
     }
 
+    private static int i =0 ;
     public void attack() {
 
         if (onAttacking) {
             return;
         }
 
+//        System.out.println("Begin attack " + i);
+//        Player player = new Player(gameScreen, gameScreen.getMediaManagement().getSound("Attack"), Player.VOLUME_PLAYER);
+//        player.play();
+//        System.out.println("End attack" + i);
+//        i++;
+
+        playSound("Attack");
+
         if (onWeapon == null) {
 
             defaultAttack();
-
+//            System.out.println(this.getName() + " has no weapon at " + onAttack.get());
             onAttacking = false;
             return;
         }
@@ -160,7 +251,7 @@ public abstract class Character extends Subject {
         stand();
         isDisableMoving.set(true);
 
-        Timeline attack = new Timeline(new KeyFrame(Duration.millis(10), ev -> {
+        attack = new Timeline(new KeyFrame(Duration.millis(30), ev -> {
 
             Action action = getOnAction();
 
@@ -179,10 +270,11 @@ public abstract class Character extends Subject {
                 }
             }
 
-            Timeline performComplete = new Timeline(new KeyFrame(Duration.millis(onWeapon.cycle * 0.95d), av -> {
+            performComplete = new Timeline(new KeyFrame(Duration.millis(onWeapon.cycle * 0.95d), av -> {
                 isDisableMoving.set(false);
                 setActions(action);
                 onAttacking = false;
+                doAfterCompleteAttack();
             }));
             performComplete.play();
 
@@ -194,15 +286,14 @@ public abstract class Character extends Subject {
 
     }
 
+    public abstract void doAfterCompleteAttack();
 
-    @Override
-    public void getDamage(int damage) {
-        super.getDamage(damage);
-        System.out.println(HP.get());
-    }
 
     public void move() {
 
+        if (HP.get() < 0) {
+            return;
+        }
         stand = !isMoving();
 
         if (goUp) {
@@ -226,7 +317,16 @@ public abstract class Character extends Subject {
 
     @Override
     public void die() {
+        showBloodBar.set(false);
+
         String onWeapon = getOnWeapon();
+
+        if (attack != null) {
+            attack.stop();
+            if (performComplete != null) {
+                performComplete.stop();
+            }
+        }
         switch (onDirection) {
             case UP -> {
                 setActions(onWeapon + "DieUp");

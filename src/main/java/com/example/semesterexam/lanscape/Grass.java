@@ -13,7 +13,6 @@ import java.util.Random;
 
 public class Grass extends Subject {
     public Point2D point2D = new Point2D(0, 0);
-    private int maxHP = 1000;
 
     public Grass(double X, double Y, GameScreen gameScreen) throws IOException {
 
@@ -21,6 +20,9 @@ public class Grass extends Subject {
 
         setX(X);
         setY(Y);
+
+        setFitWidth(gameScreen.getComponentSize());
+        setFitHeight(gameScreen.getComponentSize());
 
         addActions("Default", gameScreen.getAction("GrassPack:Default"));
         addActions("Fire", gameScreen.getAction("GrassPack:FireGrass"));
@@ -33,11 +35,13 @@ public class Grass extends Subject {
 
         setBuffHP();
 
+
+
 //        setActions("Multi");
     }
 
     @Override
-    public void getDamage(int damage) {
+    public void getDamage(double damage) {
         HP.set(HP.get() - damage);
     }
 
@@ -61,7 +65,7 @@ public class Grass extends Subject {
             HP.set(1);
         }
         buffHP = new Timeline(new KeyFrame(Duration.millis(1000), ev -> {
-            HP.set(Math.min(HP.get() + maxHP / 5, maxHP));
+            HP.set(Math.min(HP.get() + maxHP.get() / 5, maxHP.get()));
         }));
 
         buffHP.setCycleCount(Transition.INDEFINITE);

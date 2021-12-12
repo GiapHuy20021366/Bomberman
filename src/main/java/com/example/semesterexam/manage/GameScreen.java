@@ -4,140 +4,296 @@ import com.example.semesterexam.core.Direction;
 import com.example.semesterexam.core.Figure;
 import com.example.semesterexam.core.Monster;
 import com.example.semesterexam.core.Character;
-import com.example.semesterexam.figure.HuMan;
 import com.example.semesterexam.figure.Magician;
 import com.example.semesterexam.figure.SuperHuMan;
-import com.example.semesterexam.monster.Orc;
-import com.example.semesterexam.monster.Skeleton;
-import com.example.semesterexam.monster.Winged;
+import com.example.semesterexam.monster.*;
+import com.example.semesterexam.task.MyTask;
 import com.example.semesterexam.tool.Action;
+import com.example.semesterexam.tool.FigureInformation;
 import com.example.semesterexam.tool.ViewPlayer;
-import com.example.semesterexam.weapon.Boom;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import com.example.semesterexam.creategame.FigureDisplay;
 
 import java.io.IOException;
-import java.util.Random;
+import java.util.HashMap;
+
 
 public class GameScreen {
 
-    private ObjectManagement management = new ObjectManagement();
-    private Map map;
-    private Figure character;
+    private final ObjectManagement management = new ObjectManagement();
+    private final Map map = new Map();
+    private Figure character1;
+    private Figure character2;
+
+    public static final String SUPERHUMAN = "SuperHuMan";
+    public static final String MAGICIAN = "Magician";
+
     private ViewPlayer viewPlayer;
-    private ActionsManagement actions = new ActionsManagement();
+    private final ActionsManagement actions = new ActionsManagement();
 
-    private DoubleProperty componentSize = new SimpleDoubleProperty();
+    private final DoubleProperty componentSize = new SimpleDoubleProperty(80);
+    private final HashMap<String, Timeline> loadingProcess = new HashMap<>();
+    private MyTask task;
+    private MiniMap miniMap;
+    private MediaManagement mediaManagement;
+    private GamePlay gamePlay;
+    private int typeFir1 = 0;
+    private int typeFir2 = 1;
+
+    public void setGamePlay(GamePlay gamePlay) {
+        this.gamePlay = gamePlay;
+    }
+
+    public GamePlay getGamePlay() {
+        return gamePlay;
+    }
+
+    public void setTypeFir(int type1, int type2) {
+        this.typeFir1 = type1;
+        this.typeFir2 = type2;
+    }
+
+    public MediaManagement getMediaManagement() {
+        return mediaManagement;
+    }
+
+    public void loadNextGame(String fileMap) throws IOException {
+        task.updateProgress(0d, 1d);
+        task.updateMessage("Đang khởi tạo màn chơi tiếp theo...");
+        setLoadingProcess("NextStage", 30, 1000, 0, 99);
+        management.setAccess(false);
+        management.clear();
+        management.setMiniMap(null);
+        map.createMap(fileMap);
+        management.setAccess(true);
+
+        if (character1 != null) {
+            character1.setDefaultLocation(1, 3);
+            character1.showPropertyInNewMap();
+            character1.setStand();
+            map.getChildren().add(character1);
+        }
+        if (character2 != null) {
+            character2.setDefaultLocation(1, 2);
+            character2.showPropertyInNewMap();
+            character2.setStand();
+            map.getChildren().add(character2);
+        }
 
 
-    public GameScreen() {
+        management.setMiniMap(miniMap);
+
+        miniMap.load();
+        stopProgress("NextStage", 99);
+    }
+
+    public void loadFigure(String figure1, String figure2, Map map) throws IOException {
+        if (figure1.equals(SUPERHUMAN)) {
+            character1 = new SuperHuMan(this);
+        } else {
+            character1 = new Magician(this);
+        }
+        character1.setName(figure1 + character1);
+        character1.setDefaultLocation(1, 1);
+        character1.setDefaultSize(1d);
+        character1.addAllActions();
+        character1.showBloodBar();
+        character1.addAllWeapon();
+        management.addCharacter(character1);
+        if (!map.getChildren().contains(character1)) {
+            map.getChildren().add(character1);
+        }
+
+        // Set Control for Character
+        character1.startMoving();
+
+
+        if (figure2.equals(SUPERHUMAN)) {
+            character2 = new SuperHuMan(this);
+        } else {
+            character2 = new Magician(this);
+        }
+        character2.setName(figure2 + character2);
+        character2.setDefaultLocation(1, 2);
+        character2.setDefaultSize(1d);
+        character2.addAllActions();
+        character2.showBloodBar();
+        character2.addAllWeapon();
+        management.addCharacter(character2);
+        if (!map.getChildren().contains(character2)) {
+            map.getChildren().add(character2);
+        }
+
+        // Set Control for Character
+        character2.startMoving();
+
 
     }
 
-    public Scene getGame() throws IOException {
+    public void loadMap(String mapFilePath) throws IOException {
+        map.setGameScreen(this);
+        map.createMap(".\\Map\\Stage\\Stage1.txt");
+
+    }
+
+
+    public void setTask(MyTask task) {
+        this.task = task;
+    }
+
+    public Scene getGame(String fileMap, String name1, String name2) throws IOException {
+        if (gamePlay == null) {
+            throw new UnsupportedOperationException("Set up GamePlay Yet");
+        }
         // Default size everything = 45
-        componentSize.set(40);
+        componentSize.set(80);
+        management.setGameScreen(this);
+        mediaManagement = new MediaManagement(".\\Media\\AllPathSound.txt");
+        System.out.println("Here");
 
-        // Load Actions
-        actions.loadAllActionsFrom(".\\Action\\BasicActions.txt");
-        actions.loadAllActionsFrom(".\\Action\\OrcPack.txt");
-        actions.loadAllActionsFrom(".\\Action\\SkeletonPack.txt");
-        actions.loadAllActionsFrom(".\\Action\\FirePack.txt");
-        actions.loadAllActionsFrom(".\\Action\\ArrowPack.txt");
-        actions.loadAllActionsFrom(".\\Action\\SuperHuManPack.txt");
-        actions.loadAllActionsFrom(".\\Action\\IceBulletPack.txt");
-        actions.loadAllActionsFrom(".\\Action\\FireBulletPack.txt");
-        actions.loadAllActionsFrom(".\\Action\\ItemsPack.txt");
-        actions.loadAllActionsFrom(".\\Action\\WingedPack.txt");
-        actions.loadAllActionsFrom(".\\Action\\SimpleFireGoal.txt");
+        task.updateProgress(0d, 1d);
 
+        // Loading actions
+        task.updateMessage("Đang thiết lập đồ họa");
+        setLoadingProcess("Graphic", 30, 1000, 0, 50);
+        actions.loadAllActionsFolder(".\\Action");
+        stopProgress("Graphic", 50);
+        task.updateMessage("Thành công");
 
-        // Set management
-        management.gameScreen = this;
-
-        // Create Character to control
-        character = new SuperHuMan(this);
-        character.setName("Magician");
-        character.setDefaultLocation(1, 1);
-        character.setDefaultSize(1d);
-        character.addAllActions();
-
-//        character.addWeapon(new Archery(character, this));
-        character.addAllWeapon();
-
-        management.addCharacter("Main player", character);
-
-        // Set Control for Character
-        character.startMoving();
 
         // Create Map
-        map = new Map(".\\Map\\DefaultMap\\Basicmap.txt", this);
-//        map.setGameScreen(this);
-
-        // Add Character to Map
-        map.getChildren().add(character);
-
+        task.updateMessage("Đang khởi tạo bản đồ chính...");
+        setLoadingProcess("Map", 30, 500, 50, 60);
+        map.setGameScreen(this);
+        map.createMap(fileMap);
         // Set Background of map
         map.setBackgroundBy(".\\Background\\GreenBackground.png");
+        stopProgress("Map", 60);
+        task.updateMessage("Thành công");
 
+
+        task.updateMessage("Đang khởi tạo bản đồ thu nhỏ...");
+        setLoadingProcess("MiniMap", 30, 500, 60, 70);
+        miniMap = new MiniMap(this);
+        miniMap.load();
+        miniMap.setLayoutX(10);
+        miniMap.setLayoutY(360);
+        management.setMiniMap(miniMap);
+        stopProgress("MiniMap", 70);
+        task.updateMessage("Thành công");
+        // Set management
+
+
+        task.updateMessage("Đang khởi tạo nhân vật");
+        setLoadingProcess("Figure", 30, 500, 70, 80);
+        if (name1 != null) {
+            switch (typeFir1) {
+                case FigureDisplay.SUPERHUMAN -> {
+                    character1 = new SuperHuMan(this);
+                }
+                case FigureDisplay.MAGICIAN -> {
+                    character1 = new Magician(this);
+                }
+            }
+            character1.setName(name1);
+            character1.setDefaultLocation(1, 3);
+            character1.setDefaultSize(1d);
+            character1.addAllActions();
+            character1.showBloodBar();
+            character1.addAllWeapon();
+            management.addCharacter(character1);
+            map.getChildren().add(character1);
+            miniMap.addFigures(character1);
+            // Set Control for Character
+            character1.startMoving();
+
+        }
+
+        if (name2 != null) {
+            switch (typeFir2) {
+                case FigureDisplay.SUPERHUMAN -> {
+                    character2 = new SuperHuMan(this);
+                }
+                case FigureDisplay.MAGICIAN -> {
+                    character2 = new Magician(this);
+                }
+            }
+            character2.setName(name2);
+            character2.setDefaultLocation(1, 4);
+            character2.setDefaultSize(1d);
+            character2.addAllActions();
+            character2.showBloodBar();
+            character2.addAllWeapon();
+            management.addCharacter(character2);
+            map.getChildren().add(character2);
+            miniMap.addFigures(character2);
+            // Set Control for Character
+            character2.startMoving();
+        }
+
+
+        stopProgress("Figure", 80);
+        task.updateMessage("Thành công");
+
+
+        task.updateMessage("Đang thiết lập điều khiển nhân vật");
+        setLoadingProcess("Control", 30, 500, 80, 90);
         // Create a view play of map
         viewPlayer = new ViewPlayer(map);
 
         // Move viewport of map by character
-        viewPlayer.moveViewportBy((Figure) character);
+        viewPlayer.moveViewportBy(character1);
 
+//        monsters();
 
-//        for (int i = 15 ;i < 30 ; i ++) {
-//            insertBoss(i, 1, i + "");
-//        }
-
-        Monster monster1 = new Skeleton(this);
-        monster1.setName("Orc");
-        monster1.setDefaultSize(1.2d);
-        monster1.setDefaultLocation(1, 10);
-        monster1.addAllActions();
-        monster1.setDefaultDirection(Direction.UP);
-        monster1.startCauseDamage();
-        monster1.startMoving();
-        management.addMonster(monster1);
-        map.getChildren().add(monster1);
         // Create Game
-        Scene game = new Scene(viewPlayer);
+        Scene game = new Scene(viewPlayer, 1280, 720);
 
 
-        // Set control for character
-        game.setOnKeyPressed(character.getKeyPressedEvent());
-        game.setOnKeyReleased(character.getKeyKeyReleasedEvent());
+        // Control
+        Control control = new Control(character1, character2, viewPlayer);
+        game.setOnKeyPressed(control.getKeyPressedEvent());
+        game.setOnKeyReleased(control.getKeyKeyReleasedEvent());
+
+        stopProgress("Control", 90);
+
+
+        task.updateMessage("Đang thiết lập màn chơi...");
+        setLoadingProcess("Stage", 30, 500, 90, 100);
 
         // Using for resize
         componentSize.addListener(((observableValue, oldValue, newValue) -> {
             map.defineHeightWidth();
-//            management.reDraw();
             viewPlayer.moveViewport();
         }));
 
-        monsters();
+        FigureInformation information = new FigureInformation(character1, character2);
+        viewPlayer.getChildren().add(information);
+        information.show();
 
-//        Action action = getAction("Huy @ test!");
-//        return viewPlayer;
+        // Add miniMap
+        information.getChildren().add(miniMap);
+        miniMap.toFront();
+        stopProgress("Stage", 100);
+
+        task.updateMessage("Khởi tạo hoàn tất, đang tiến hành vào game...");
 
         return game;
     }
 
     public EventHandler<KeyEvent> getKeyPressedEvent() {
-        return character.getKeyPressedEvent();
+        return character1.getKeyPressedEvent();
     }
 
     public EventHandler<KeyEvent> getKeyReleasedEvent() {
-        return character.getKeyKeyReleasedEvent();
+        return character1.getKeyKeyReleasedEvent();
     }
 
 
@@ -159,12 +315,10 @@ public class GameScreen {
 
     public void setVision(double rateVision) {
         double newSize = componentSize.get() * rateVision;
-        if (newSize * map.getMAX_ROW() < character.getViewValue() * 2) return;
-        if (newSize * map.getMAX_COLUMN() < character.getViewValue() * 2) return;
+        if (newSize * map.getMAX_ROW() < character1.getViewValue() * 2) return;
+        if (newSize * map.getMAX_COLUMN() < character1.getViewValue() * 2) return;
 
         componentSize.set(newSize);
-//        management.resetDefaultSpeed(rateVision);
-
     }
 
     public void sacking() {
@@ -178,7 +332,6 @@ public class GameScreen {
         monster1.setDefaultLocation(x, y);
         monster1.addAllActions();
         monster1.setDefaultDirection(Direction.RIGHT);
-        monster1.startCauseDamage();
         monster1.startMoving();
         management.addMonster(monster1);
         map.getChildren().add(monster1);
@@ -196,45 +349,63 @@ public class GameScreen {
         return action;
     }
 
-    public Character getCharacter() {
-        return character;
+    public boolean dieAll() {
+        if (character1 != null && character2 != null) {
+            return character1.getHP() <= 0 && character2.getHP() <= 0;
+        }
+        if (character1 != null) {
+            return character1.getHP() <= 0;
+        }
+        return character2.getHP() <= 0;
     }
 
-    public void testBooms(double i, double j) throws IOException {
-        Boom boom = new Boom(i * componentSize.get(), j * componentSize.get(), this);
-        boom.setDamage(100000);
-        boom.setRange(5d);
-        map.getChildren().add(boom);
-        management.addBoom(boom);
+    private void setLoadingProcess(String name, int count, long time, double min, double max) {
+
+        final double amount = (max - min) / count;
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(time / (double) count), ev -> {
+            task.updateProgress(Math.min(task.getProgress() * 100d + amount, max), 100);
+        }));
+        timeline.setCycleCount(count);
+        loadingProcess.put(name, timeline);
+        timeline.play();
+    }
+
+    private void stopProgress(String name, double finalProcess) {
+        loadingProcess.get(name).stop();
+        loadingProcess.remove(name);
+        task.updateProgress(finalProcess, 100);
     }
 
     // For test
     public void monsters() {
-        Timeline h = new Timeline(new KeyFrame(Duration.millis(1500), ev -> {
-            Monster monster1 = null;
-            Random random = new Random();
-            try {
-                int hex = random.nextInt(100);
-                if (hex < 30) monster1 = new Orc(this);
-                else if (hex < 60) monster1 = new Skeleton(this);
-                else  monster1 = new Winged(this);
+        Monster m = null;
+        try {
+            m = new BossHuMan(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert m != null;
+        m.setDefaultSize(1d);
+        m.setDefaultLocation(9, 1);
+        m.addAllActions();
+        m.addAllWeapon();
+        m.setDefaultDirection(Direction.RIGHT);
+        m.setCanChangeDirection(true);
+        m.startMoving();
+        m.showBloodBar();
+        getManagement().addMonster(m);
+        getMap().getChildren().add(m);
+    }
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            monster1.setDefaultSize(1d);
-//            monster1.setDefaultSpeed(character.getDefaultSpeed() / 2d);
-            monster1.setDefaultLocation(2, 1);
-            monster1.addAllActions();
-            monster1.addAllWeapon();
-            monster1.setDefaultDirection(Direction.RIGHT);
-            monster1.startCauseDamage();
-            monster1.startMoving();
-            management.addMonster(monster1);
-            map.getChildren().add(monster1);
-        }));
+    public MiniMap getMiniMap() {
+        return miniMap;
+    }
 
-        h.setCycleCount(-1);
-        h.play();
+    public Figure getFigure1() {
+        return character1;
+    }
+
+    public Figure getFigure2() {
+        return character2;
     }
 }

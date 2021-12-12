@@ -15,9 +15,9 @@ public class Bow extends Weapon {
 
     public Bow(Character character, GameScreen gameScreen) {
         super(character, gameScreen);
-        if (!(character instanceof Archery)) {
-            throw new UnsupportedOperationException("Bow is not supported for this kind of character, name character: " + character.getName());
-        }
+//        if (!(character instanceof Archery)) {
+//            throw new UnsupportedOperationException("Bow is not supported for this kind of character, name character: " + character.getName());
+//        }
     }
 
     @Override
@@ -28,6 +28,11 @@ public class Bow extends Weapon {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void playOnFlySounds() {
+        character.playSound("Archery");
     }
 
     @Override

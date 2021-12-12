@@ -25,6 +25,11 @@ public class RedSword extends Weapon {
     }
 
     @Override
+    public void playOnFlySounds() {
+        character.playSound("Sword");
+    }
+
+    @Override
     public boolean hasBullet() {
         if ("RedSlash".equals(character.getOnAttack())) {
             return fireBulletCount != 0;

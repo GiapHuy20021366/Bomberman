@@ -9,11 +9,14 @@ public class ConcreteWall extends Wall {
     public ConcreteWall(double X, double Y, GameScreen gameScreen) throws IOException {
         super(X, Y, gameScreen);
         HP.set(50);
+
+        addActions("Default", gameScreen.getAction("WallCungPack:Default"));
+        setActions("Default");
     }
 
 
     @Override
-    public void getDamage(int damage) {
+    public void getDamage(double damage) {
         // Do Nothing
     }
 }

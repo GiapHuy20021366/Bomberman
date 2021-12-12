@@ -29,7 +29,6 @@ public abstract class Weapon {
 
     public void conduct() {
 
-
         setNewBullet();
 
         bullet.setDefaultActions();
@@ -74,11 +73,14 @@ public abstract class Weapon {
         Timeline appear = new Timeline(new KeyFrame(Duration.millis(cycle / 2), ev -> {
             gameScreen.getMap().getChildren().add(finalArrow);
             finalArrow.fly();
+            playOnFlySounds();
         }));
 
         appear.play();
 
     }
+
+    public abstract void playOnFlySounds();
 
     @Override
     public boolean equals(Object o) {

@@ -8,7 +8,7 @@ import com.example.semesterexam.manage.GameScreen;
 import java.io.IOException;
 
 public class BlueSword extends Weapon {
-    private int iceBulletCount = 5;
+    private int iceBulletCount = 15;
 
     public BlueSword(Character character, GameScreen gameScreen) {
         super(character, gameScreen);
@@ -37,6 +37,11 @@ public class BlueSword extends Weapon {
         if (bullet == Bullets.IceBullet) {
             iceBulletCount += count;
         }
+    }
+
+    @Override
+    public void playOnFlySounds() {
+        character.playSound("Sword");
     }
 
     @Override

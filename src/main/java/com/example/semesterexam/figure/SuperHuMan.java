@@ -1,7 +1,9 @@
 package com.example.semesterexam.figure;
 
 import com.example.semesterexam.core.Figure;
+import com.example.semesterexam.effect.*;
 import com.example.semesterexam.manage.GameScreen;
+import com.example.semesterexam.tool.Player;
 import com.example.semesterexam.weapon.*;
 
 import java.io.IOException;
@@ -9,6 +11,34 @@ import java.io.IOException;
 public class SuperHuMan extends Figure implements Archery, RedSlash, BlueSlash {
     public SuperHuMan(GameScreen gameScreen) throws IOException {
         super(gameScreen);
+
+        maxHP.set(500);
+        HP.set(500);
+        baseDamage.set(120);
+        rateSpeed.set(0.8);
+
+    }
+
+    @Override
+    public void addSounds() {
+        super.addSounds();
+
+        sounds.put("Archery", new Player(gameScreen, "Archery", Player.VOLUME_FIGURE_WEAPON));
+        sounds.put("Sword", new Player(gameScreen, "Sword", Player.VOLUME_FIGURE_WEAPON));
+        sounds.put("Fire", new Player(gameScreen, "Fire", Player.VOLUME_FIGURE_WEAPON));
+
+    }
+
+    @Override
+    public void addIconSkills() {
+        try {
+            iconSkill.put("Normal", new IconBomber(gameScreen, this, -1));
+            iconSkill.put("BlueSlash", new IconBlueSword(gameScreen, this, -1));
+            iconSkill.put("RedSlash", new IconRedSlash(gameScreen, this, -1));
+            iconSkill.put("Archery", new IconArchery(gameScreen, this, -1));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -177,6 +207,8 @@ public class SuperHuMan extends Figure implements Archery, RedSlash, BlueSlash {
         addActionAttackBlueSlash();
         addActionDieBlueSword();
 
+        addIconSkills();
+
 
         addAllAttack();
     }
@@ -188,5 +220,22 @@ public class SuperHuMan extends Figure implements Archery, RedSlash, BlueSlash {
         addAttackBlueSword();
     }
 
+    @Override
+    public void setAttack(int i) {
+        switch (i) {
+            case 1 -> {
+                onAttack.set("Normal");
+            }
+            case 2 -> {
+                onAttack.set("Archery");
+            }
+            case 3 -> {
+                onAttack.set("RedSlash");
+            }
+            case 4 -> {
+                onAttack.set("BlueSlash");
+            }
+        }
+    }
 
 }

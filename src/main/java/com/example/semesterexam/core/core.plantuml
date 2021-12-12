@@ -1,0 +1,436 @@
+@startuml
+
+title __CORE's Class Diagram__\n
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Bullet {
+            + dx : double
+            + dy : double
+            + heightReality : double
+            + widthReality : double
+            # defaultSpeed : DoubleProperty
+            # fly : AnimationTimer
+            # maxRange : double
+            # nowRange : double
+            + Bullet()
+            + die()
+            + draw()
+            {abstract} + effect()
+            + fly()
+            {abstract} + getName()
+            + getOwner()
+            + move()
+            {abstract} + setDefaultActions()
+            {abstract} + setRealitySize()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        enum Bullets {
+          Arrow
+          FireBullet
+          IceBullet
+          SimpleFireGoal
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Character {
+            # attack : Timeline
+            # attacks : HashMap<String, String>
+            # baseDamage : DoubleProperty
+            # countdownPutBoom : Timeline
+            # cyclePutBoom : LongProperty
+            # goDown : boolean
+            # goLeft : boolean
+            # goRight : boolean
+            # goUp : boolean
+            # hasPutBoom : boolean
+            # iconSkill : HashMap<String, Effect>
+            # isDisableMoving : BooleanProperty
+            # onAttack : StringProperty
+            # onAttacking : boolean
+            # performComplete : Timeline
+            # showBloodBar : BooleanProperty
+            # sounds : HashMap<String, Player>
+            # stand : boolean
+            # timer : AnimationTimer
+            # viewValue : double
+            # weapons : HashMap<String, Weapon>
+            {static} - i : int
+            + Character()
+            {abstract} + addActionDieNormal()
+            {abstract} + addActionMoveNormal()
+            {abstract} + addAllActions()
+            {abstract} + addAllAttack()
+            {abstract} + addAllWeapon()
+            {abstract} + addIconSkills()
+            {abstract} + addSounds()
+            + addWeapon()
+            + attack()
+            {abstract} + countdownPutBoom()
+            {abstract} + defaultAttack()
+            + die()
+            {abstract} + doAfterCompleteAttack()
+            + equals()
+            + getBaseDamage()
+            + getCyclePutBoom()
+            + getOnAttack()
+            + getOnWeapon()
+            + getSound()
+            + getViewValue()
+            {abstract} + goDown()
+            {abstract} + goLeft()
+            {abstract} + goRight()
+            {abstract} + goUp()
+            + hashCode()
+            + isMoving()
+            + move()
+            + playSound()
+            + setActionGoDirection()
+            + setAttacks()
+            + setCyclePutBoom()
+            + setDefaultLocation()
+            + setIsDisableMoving()
+            + setViewValue()
+            + setWeapon()
+            + showBloodBar()
+            + showIconSkill()
+            + stand()
+            + startMoving()
+            # isOverlapping()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        enum Direction {
+          DOWN
+          LEFT
+          RIGHT
+          UP
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Effect {
+            # disappear : Timeline
+            # timeExist : long
+            + Effect()
+            + bindByCharacter()
+            + die()
+            + makeDisappear()
+            + setAll()
+            {abstract} + setDefaultAction()
+            + show()
+            + unBind()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Figure {
+            # items : HashMap<ItemsName, Item>
+            - beSeen : BooleanProperty
+            - outSaw : Timeline
+            + Figure()
+            + addIconSkills()
+            + addItems()
+            + addSounds()
+            + countdownForNotBeSeen()
+            + countdownPutBoom()
+            + defaultAttack()
+            + die()
+            + doAfterCompleteAttack()
+            + getAttack()
+            + getKeyKeyReleasedEvent()
+            + getKeyPressedEvent()
+            + goDown()
+            + goLeft()
+            + goRight()
+            + goUp()
+            + isSeen()
+            + plusBullet()
+            + putBoom()
+            + removeEffectByItem()
+            {abstract} + setAttack()
+            + setBeSeen()
+            + setGo()
+            + setStand()
+            + setViewValue()
+            + showPropertyInNewMap()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Item {
+            # disappear : Timeline
+            # effecting : boolean
+            # timeOut : double
+            # timer : AnimationTimer
+            + Item()
+            + die()
+            {abstract} + disableEffect()
+            + disappear()
+            {abstract} + effect()
+            {abstract} + getItemsName()
+            + removeEffect()
+            {abstract} + setDefault()
+            + setTimeOut()
+            + startTimer()
+            - getThis()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        enum ItemsName {
+          BalloonArrow
+          FasterPutBoom
+          Immortal
+          IncreaseDamage
+          PlusBullet
+          PlusHP
+          SpeedUp
+          StopTime
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Monster {
+            # canChangeDirection : SimpleBooleanProperty
+            # causeDamage : AnimationTimer
+            # changeDirection : Timeline
+            # cycleChangeDirection : long
+            # cycleHideBloodBar : long
+            # detectFigure : AnimationTimer
+            # disableCauseDamage : boolean
+            # eyeFar : DoubleProperty
+            # rangeFar : DoubleProperty
+            ~ disappearBloodBar : Timeline
+            ~ moveAgain : Timeline
+            {static} - count : int
+            + Monster()
+            {abstract} + addActionAttack()
+            + addIconSkills()
+            + addSounds()
+            + attack()
+            + bindingSpeed()
+            + causeDamage()
+            + changeDirection()
+            + countTimeForNextDamage()
+            + countdownPutBoom()
+            + damage()
+            + defaultAttack()
+            + die()
+            + doAfterCompleteAttack()
+            + freeze()
+            + getDamage()
+            + getEyeFar()
+            + getRangeFar()
+            + goDown()
+            + goLeft()
+            + goRight()
+            + goUp()
+            + makeDetectFigure()
+            + outOfFreeze()
+            + randomDirection()
+            + setCanChangeDirection()
+            + setDefaultDirection()
+            + setDisableCauseDamage()
+            + setEyeFar()
+            + setRangeFar()
+            + showBloodBar()
+            + startCauseDamage()
+            + startMoving()
+            + stopChangeDirection()
+            # disableAllDirection()
+            - getThis()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Subject {
+            # HP : DoubleProperty
+            # actions : HashMap<String, Action>
+            # componentSize : DoubleProperty
+            # cycle : long
+            # defaultSpeed : DoubleProperty
+            # dieScore : IntegerProperty
+            # increaseDamage : DoubleProperty
+            # maxHP : DoubleProperty
+            # rateSize : DoubleProperty
+            # rateSpeed : DoubleProperty
+            # reduceDamage : DoubleProperty
+            # score : IntegerProperty
+            # speedUp : DoubleProperty
+            # subjectName : String
+            # subjectSize : DoubleProperty
+            # totalDamage : IntegerProperty
+            # totalKill : IntegerProperty
+            + Subject()
+            + Subject()
+            + addActions()
+            + bidingSize()
+            + bindingNecessary()
+            + bindingSpeed()
+            + createAnimation()
+            + die()
+            + draw()
+            + getBlood()
+            + getDamage()
+            + getDamage()
+            + getDefaultSpeed()
+            + getDieScore()
+            + getHP()
+            + getIncreaseDamage()
+            + getMaxBlood()
+            + getMaxHP()
+            + getName()
+            + getOnAction()
+            + getOnDirection()
+            + getScore()
+            + getSpeedUp()
+            + getTotalDamage()
+            + getTotalKill()
+            + plusHP()
+            + plusScore()
+            + plusTotalDamage()
+            + plusTotalKill()
+            + scoreProperty()
+            + setActions()
+            + setActions()
+            + setActions()
+            + setDefaultSize()
+            + setDefaultSpeed()
+            + setDirectionDependOnAction()
+            + setHP()
+            + setIncreaseDamage()
+            + setJustDamage()
+            + setMaxHP()
+            + setName()
+            + setRateSize()
+            + setReduceDamage()
+            + setSpeedUp()
+            + updateLocationWhenSizeChanged()
+            - setup()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Wall {
+            + point2D : Point2D
+            + Wall()
+            + die()
+            + draw()
+            + setPoint2D()
+        }
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace om.example.semesterexam {
+      namespace core {
+        abstract class com.example.semesterexam.core.Weapon {
+            + cycle : long
+            # name : String
+            + Weapon()
+            + conduct()
+            + equals()
+            {abstract} + getName()
+            {abstract} + hasBullet()
+            + hashCode()
+            {abstract} + playOnFlySounds()
+            {abstract} + plusBullet()
+            {abstract} + setNewBullet()
+        }
+      }
+    }
+  }
+  
+
+  com.example.semesterexam.core.Bullet -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.core.Bullet o-- com.example.semesterexam.core.Character : owner
+  com.example.semesterexam.core.Bullet o-- com.example.semesterexam.core.Subject : subject
+  com.example.semesterexam.core.Character -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.core.Character o-- com.example.semesterexam.accessory.BloodBar : bloodBar
+  com.example.semesterexam.core.Character o-- com.example.semesterexam.core.Weapon : onWeapon
+  com.example.semesterexam.core.Effect -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.core.Effect o-- com.example.semesterexam.core.Character : character
+  com.example.semesterexam.core.Figure -up-|> com.example.semesterexam.core.Character
+  com.example.semesterexam.core.Item -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.core.Item o-- com.example.semesterexam.core.Effect : effect
+  com.example.semesterexam.core.Item o-- com.example.semesterexam.core.Figure : figure
+  com.example.semesterexam.core.Monster -up-|> com.example.semesterexam.core.Character
+  com.example.semesterexam.core.Subject -up-|> javafx.scene.image.ImageView
+  com.example.semesterexam.core.Subject o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.core.Subject o-- com.example.semesterexam.tool.ImageViewProperties : imageViewProperties
+  com.example.semesterexam.core.Subject o-- com.example.semesterexam.core.Subject : justDamage
+  com.example.semesterexam.core.Subject o-- com.example.semesterexam.tool.SpriteAnimation : onAction
+  com.example.semesterexam.core.Subject o-- com.example.semesterexam.core.Direction : onDirection
+  com.example.semesterexam.core.Wall -up-|> com.example.semesterexam.core.Subject
+  com.example.semesterexam.core.Weapon o-- com.example.semesterexam.core.Bullet : bullet
+  com.example.semesterexam.core.Weapon o-- com.example.semesterexam.core.Character : character
+  com.example.semesterexam.core.Weapon o-- com.example.semesterexam.manage.GameScreen : gameScreen
+  com.example.semesterexam.core.Weapon o-- com.example.semesterexam.core.Direction : onDirection
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

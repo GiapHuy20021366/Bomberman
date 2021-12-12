@@ -20,14 +20,11 @@ import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 public class ViewPlayer extends Pane {
-    private ScrollPane scrollPane = new ScrollPane();
+    private final ScrollPane scrollPane = new ScrollPane();
     private Figure player = null;
-    private AnimationTimer moveView;
     private Map map;
     private boolean disableViewport = false;
-//    private Node borderPane;
-//    private Scale scale = new Scale(1d, 1d);
-//    private DoubleProperty zoom = new SimpleDoubleProperty(1d);
+
 
     public ViewPlayer(Map map) {
 
@@ -52,40 +49,35 @@ public class ViewPlayer extends Pane {
         });
 
 
-
         // Set content
-        scrollPane.setContent(map);
-//        map.getTransforms().add(scale);
+//        scrollPane.setContent(map);
+        setMap(map);
+
 
         // SetSize
-        setViewSize(600, 600);
+        setViewSize(900, 720);
 
         // ViewPlayer with scrollPane
         getChildren().add(scrollPane);
 
-//        zoom.addListener((observable, oldValue, newValue) -> {
-//            scale.setX(newValue.doubleValue());
-//            scale.setY(newValue.doubleValue());
-//            scale.setPivotX(player.getX() + player.getFitWidth() / 2d);
-//            scale.setPivotY(player.getY() + player.getFitHeight() / 2d);
-////            player.setViewValue(player.getViewValue() * newValue.doubleValue());
-//            map.setWIDTH(map.getWIDTH() / newValue.doubleValue());
-//            map.setHEIGHT(map.getHEIGHT() / newValue.doubleValue());
-//            scrollPane.requestLayout();
-//            moveViewport();
-//        });
 
     }
 
-//    public void setZoom(double rate) {
-//        zoom.set(zoom.get() * rate);
-//    }
+    public void setMap(Map map) {
+        disableViewport = true;
+        this.map = map;
+        scrollPane.setContent(map);
+        disableViewport = false;
+    }
+
 
     public void setViewSize(double width, double height) {
         scrollPane.setPrefSize(width, height);
     }
 
     public void moveViewport() {
+
+//        System.out.println(scrollPane.getContent().getBoundsInLocal());
 
         double hValue = (player.getX() + player.getFitHeight() / 2d - scrollPane.getWidth() / 2d)
                 / (map.getWIDTH() - scrollPane.getWidth());
@@ -101,12 +93,9 @@ public class ViewPlayer extends Pane {
     public void moveViewportBy(Figure character) {
         this.player = character;
 
-        moveView = new AnimationTimer() {
+        AnimationTimer moveView = new AnimationTimer() {
             @Override
             public void handle(long l) {
-//                if (character.isMoving() && !disableViewport) {
-//                    moveViewport();
-//                }
                 if (!disableViewport) {
                     moveViewport();
                 }
@@ -114,8 +103,6 @@ public class ViewPlayer extends Pane {
             }
         };
         moveView.start();
-
-        setViewSize(character.getViewValue() * 2, character.getViewValue() * 2);
     }
 
     public void shacking(double rateSacking, long time) {
@@ -168,11 +155,11 @@ public class ViewPlayer extends Pane {
 
     }
 
-//    public Scale getScale() {
-//        return scale;
-//    }
-
     public ScrollPane getScrollPane() {
         return scrollPane;
+    }
+
+    public Map getMap() {
+        return map;
     }
 }
